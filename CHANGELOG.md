@@ -2,4 +2,4 @@
 
 ## [Unreleased]
 
-- Public release
+- Public release.

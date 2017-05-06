@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D0A0A4E5BFEE2B801BBF260EE899BDC85297D339",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5C34A779D2E6EBA401FDD0762B922F42CB5ECEDA" : 0,
+    "D0A0A4E5BFEE2B801BBF260EE899BDC85297D339" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8D3411C9-4B45-4A29-9942-2E0FF2DF26BD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5C34A779D2E6EBA401FDD0762B922F42CB5ECEDA" : "cs-locker-ui-sdk-ios\/",
+    "D0A0A4E5BFEE2B801BBF260EE899BDC85297D339" : "cs-core-sdk-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CoreSDKTestApp",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CoreSDKTestApp.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Ceskasporiteln\/cs-locker-ui-sdk-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5C34A779D2E6EBA401FDD0762B922F42CB5ECEDA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Ceskasporiteln\/cs-core-sdk-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D0A0A4E5BFEE2B801BBF260EE899BDC85297D339"
+    }
+  ]
+}

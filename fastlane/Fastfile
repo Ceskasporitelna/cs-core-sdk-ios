@@ -1,0 +1,201 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+
+sdk_name = "CSCoreSDK"
+podspec_file = 'CSCoreSDK.podspec'
+xcodeproj_file = 'CSCoreSDK.xcodeproj'
+scheme_name = 'CoreSDK'
+repo_name = "Ceskasporitelna/cs-core-sdk-ios"
+
+fastlane_version "1.99.0"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+
+    #carthage
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan(scheme: scheme_name)
+  end
+
+  lane :ci do |options|
+    test
+    commands = commands_from_commit_msg
+    if commands.include?('[pod-lint]') ||
+       commands.include?('[release-patch]') ||
+       commands.include?('[release-minor]') ||
+       commands.include?('[release-major]')
+      pod_lint
+    end
+  end
+
+  lane :ci_release do |options|
+    commands = commands_from_commit_msg
+    version = nil
+    version = 'patch' if commands.include?('[release-patch]')
+    version = 'minor' if commands.include?('[release-minor]')
+    version = 'major' if commands.include?('[release-major]')
+    remote_branch = ENV['TRAVIS_BRANCH']
+
+
+    if version
+      UI.message("Releasing #{version} version! (Branch: #{remote_branch})")
+      release({version: version, auto_confirm: true, remote_branch: remote_branch})
+    else
+      UI.message("This is a normal CI build. Not doing a release.")
+    end
+  end
+  
+
+
+  lane :release do |options|
+    version = options[:version]
+    auto_confirm = options[:auto_confirm]
+    remote_branch = options[:remote_branch]
+    auto_confirm ||= false
+    should_notify = true
+
+
+    if !['minor','major','patch'].include?(version)
+      UI.user_error!("version option must be either `minor`, `major` or `patch`")
+    end
+
+    #######################
+    # Clean repo check
+    #######################
+    ensure_git_status_clean unless auto_confirm #Skip the check during CI build
+
+    #######################
+    # Version & Changelog
+    #######################
+    changelog = read_changelog
+    if changelog == nil || changelog.strip == ''
+      UI.user_error!("Empty changelog! - Write the changes into CHANGELOG.md!")
+    end
+    new_version = increment_version_number({bump_type: version})
+
+    unless auto_confirm
+      changelog_confirmed = prompt(
+        text: "Confirm the following changelog for new version #{new_version}: \n #{changelog}",
+        boolean: true
+      )
+      UI.user_error!("Aborting! Changelog not confirmed!") if !changelog_confirmed
+    end
+
+    #######################
+    # Run tests
+    #######################
+    scan(scheme: scheme_name)
+
+    #######################
+    # Add version number to changelog
+    #######################
+    stamp_changelog(
+      section_identifier: "#{new_version}", # Specify identifier to stamp the Unreleased section with
+      git_tag: "" # Specify reference to git tag associated with this section
+    )
+
+    #######################
+    # Write to podspec & Commit files
+    #######################
+    version_bump_podspec({version_number:new_version})
+    git_add(path: 'CHANGELOG.md')
+    git_add(path: podspec_file)
+    commit_version_bump(force: true,xcodeproj:xcodeproj_file)
+    add_git_tag(tag: "v#{new_version}", sign: true)
+
+    #######################
+    # Push to git remote and push pod
+    #######################
+    push_to_git_remote(remote_branch: remote_branch)
+    pod_push(repo: 'https://github.com/Ceskasporitelna/cocoa-pods-specs')
+    
+    
+    ########################
+    # Carthae release
+    ########################
+    release_via_carthage({sdk_name: sdk_name, repo_name: repo_name, tag: "v#{new_version}", changelog: changelog })
+    
+    ########################
+    # Notify People
+    ########################
+    unless auto_confirm
+      should_notify = prompt(
+        text: "Should people on slack be notified?",
+        boolean: true
+      )
+    end
+    if should_notify
+      message = "We are releasing new SDK for iOS: `#{sdk_name} #{new_version}`. \n Changelog: \n #{changelog} \n\n Available through cocoapods and carthage right now. :rocket:  \n\n Please let us know if you experience any issues during the integration. We are waiting for your feedback either here or in the issues on GitHub."
+      slack(
+        message: message,
+        icon_url: 'http://applifting.cz/img/external/sdk-bot.png',
+        username: 'SDK Bot',
+        channel: "#sdk-dev", #"#sdk-dev",  # Optional, by default will post to the default channel configured for the POST URL.
+        success: true,        # Optional, defaults to true.
+        slack_url: ENV['CSAS_SLACK_URL'],
+        default_payloads: []
+      )
+    end
+
+    rocket
+  end
+
+  lane :pod_lint do
+    pod_lib_lint(sources: ["https://github.com/Ceskasporitelna/cocoa-pods-specs"])
+  end
+
+
+  after_all do |lane|
+
+  end
+
+  error do |lane, exception|
+
+  end
+end
+
+def commands_from_commit_msg
+  commit_msg = `git log -1 --pretty=%B`
+  commit_msg ||= ""
+  commands = commit_msg.scan(/\[[^\[]*\]/)
+  commands.map {|s| s.downcase}
+end
+
+
+def release_via_carthage(options)
+    archive_name = "#{options[:sdk_name]}.framework.zip"
+    carthage(no_skip_current: true, command: "build")
+    carthage(command: "archive", output: archive_name)
+    github_release = set_github_release(
+                                        repository_name: options[:repo_name],
+                                        api_token: ENV["CI_USER_TOKEN"],
+                                        name: options[:tag],
+                                        tag_name: options[:tag],
+                                        description: options[:changelog] ? options[:changelog] : "No changelog provided",
+                                        upload_assets: [archive_name]
+                                        )
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer

@@ -1,0 +1,11 @@
+Podfile.lock
+*.xcuserstate
+CoreSDKTestApp.xcodeproj/xcuserdata
+CoreSDKTestApp.xcworkspace/xcuserdata
+Pods/Pods.xcodeproj/xcuserdata
+Carthage/Build
+Carthage/Checkouts
+build
+Pods
+CSCoreSDK.xcodeproj/xcuserdata
+fastlane/test_output

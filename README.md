@@ -26,7 +26,7 @@ You would normally use CoreSDK through other CSAS SDKs. If you want to use Locke
 If you use [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on CoreSDK by adding it to your Cartfile:
 
 ```
-git "git@github.com:Ceskasporitelna/cs-core-sdk-ios.git"
+github "Ceskasporitelna/cs-core-sdk-ios"
 ```
 
 ## Install through CocoaPods

@@ -13,13 +13,12 @@
 # Requirements
 
 - iOS 8.1+
-- Xcode 7.1+
+- Xcode 8.3+
 
 # CoreSDK Instalation
 
 You would normally use CoreSDK through other CSAS SDKs. If you want to use Locker without the UI or develop your app against the bare bones, you can install CoreSDK directly.
 
-**IMPORTANT!** You need to have your SSH keys registered with the GitHub since this repository is private.
 
 ## Install through Carthage
 

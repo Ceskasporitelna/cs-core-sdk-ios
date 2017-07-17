@@ -267,7 +267,7 @@ public class RSAUtils: NSObject {
 
         // Add persistent version of the key to system keychain
         // var prt: AnyObject?
-        let queryFilter = [
+        let queryFilter: [String : Any] = [
             String(kSecClass)              : kSecClassKey,
             String(kSecAttrKeyType)        : kSecAttrKeyTypeRSA,
             String(kSecAttrApplicationTag) : tagName,
@@ -275,7 +275,7 @@ public class RSAUtils: NSObject {
             String(kSecValueData)          : privkeyData!,
             String(kSecAttrKeyClass)       : kSecAttrKeyClassPrivate,
             String(kSecReturnPersistentRef): true
-        ] as [String : Any]
+        ]
         let result = SecItemAdd(queryFilter as CFDictionary, nil)
         if ((result != noErr) && (result != errSecDuplicateItem)) {
             return nil
@@ -301,14 +301,14 @@ public class RSAUtils: NSObject {
         
         // Add persistent version of the key to system keychain
         //var prt1: Unmanaged<AnyObject>?
-        let queryFilter = [
+        let queryFilter: [String : Any] = [
             String(kSecClass)              : kSecClassKey,
             String(kSecAttrKeyType)        : kSecAttrKeyTypeRSA,
             String(kSecAttrApplicationTag) : tagName,
             String(kSecValueData)          : pubkeyData!,
             String(kSecAttrKeyClass)       : kSecAttrKeyClassPublic,
             String(kSecReturnPersistentRef): true
-        ] as [String : Any]
+        ]
         let result = SecItemAdd(queryFilter as CFDictionary, nil)
         if ((result != noErr) && (result != errSecDuplicateItem)) {
             assert(false, "func SecItemAdd() returned error \(result). Maybe problem with entitlements, keychain sharing or signing?")

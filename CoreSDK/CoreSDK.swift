@@ -264,6 +264,8 @@ public class CoreSDK: NSObject, CoreSDKAPI
     
     private func useLocker( clientId : String, clientSecret : String, publicKey : String, redirectUrlPath : String, scope: String, lockerClientApiBasePath: String) -> CoreSDKAPI
     {
+        self._locker                                   = nil
+        
         self._lockerAttributes.clientId                = clientId
         self._lockerAttributes.publicKey               = publicKey
         self._lockerAttributes.redirectUrlPath         = redirectUrlPath

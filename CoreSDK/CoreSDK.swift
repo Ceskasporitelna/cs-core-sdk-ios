@@ -265,6 +265,7 @@ public class CoreSDK: NSObject, CoreSDKAPI
     private func useLocker( clientId : String, clientSecret : String, publicKey : String, redirectUrlPath : String, scope: String, lockerClientApiBasePath: String) -> CoreSDKAPI
     {
         self._locker                                   = nil
+        clog(CoreSDK.ModuleName, activityName: "InvalidateLocker", fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Locker invalidated.." )
         
         self._lockerAttributes.clientId                = clientId
         self._lockerAttributes.publicKey               = publicKey

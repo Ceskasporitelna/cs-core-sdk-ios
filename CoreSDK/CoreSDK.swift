@@ -115,6 +115,7 @@ public class CoreSDK: NSObject, CoreSDKAPI
             
             self._lockerAttributes.environment = self._environment
             self._locker                       = Locker( attributes: self._lockerAttributes )
+            clog(CoreSDK.ModuleName, activityName: LockerActivities.LockerCreated.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Locker created." )
         }
         return self._locker!
     }
@@ -264,6 +265,9 @@ public class CoreSDK: NSObject, CoreSDKAPI
     
     private func useLocker( clientId : String, clientSecret : String, publicKey : String, redirectUrlPath : String, scope: String, lockerClientApiBasePath: String) -> CoreSDKAPI
     {
+        self._locker                                   = nil
+        clog(CoreSDK.ModuleName, activityName: LockerActivities.LockerInvalidated.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Locker invalidated." )
+        
         self._lockerAttributes.clientId                = clientId
         self._lockerAttributes.publicKey               = publicKey
         self._lockerAttributes.redirectUrlPath         = redirectUrlPath

@@ -39,6 +39,8 @@ internal enum LockerActivities: String {
     case RefreshToken        = "RefreshToken"
     case ChangePassword      = "ChangePassword"
     case LockerStateChanged  = "LockerStateChanged"
+    case LockerInvalidated   = "LockerInvalidated"
+    case LockerCreated       = "LockerCreated"
 }
 
 // MARK: -

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Fixed
+- Locker invalidation/reinitialization is possible
+
 ## [1.0.4] - 2017-07-17
 
 ## Fixed

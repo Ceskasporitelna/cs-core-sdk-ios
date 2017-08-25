@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.0.5] - 2017-08-25
+
 ## Fixed
 - Locker invalidation/reinitialization is possible
 

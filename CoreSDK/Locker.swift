@@ -27,20 +27,21 @@ public struct LockerAttributes
  */
 //==============================================================================
 internal enum LockerActivities: String {
-    case Lock                = "Lock"
-    case OTPUnlock           = "OTPUnlock"
-    case UserRegistration    = "UserRegistration"
-    case UserUnregistration  = "UserUnregistration"
-    case UserUnlock          = "UserUnlock"
-    case InitLockerClient    = "InitLockerClient"
-    case UnlockWithPassword  = "UnlockWithPassword"
-    case UnlockWithOTP       = "UnlockWithOTP"
-    case RegisterUser        = "RegisterUser"
-    case RefreshToken        = "RefreshToken"
-    case ChangePassword      = "ChangePassword"
-    case LockerStateChanged  = "LockerStateChanged"
-    case LockerInvalidated   = "LockerInvalidated"
-    case LockerCreated       = "LockerCreated"
+    case Lock                 = "Lock"
+    case OTPUnlock            = "OTPUnlock"
+    case UserRegistration     = "UserRegistration"
+    case UserUnregistration   = "UserUnregistration"
+    case UserUnlock           = "UserUnlock"
+    case InitLockerClient     = "InitLockerClient"
+    case UnlockWithPassword   = "UnlockWithPassword"
+    case UnlockAfterMigration = "UnlockAfterMigration"
+    case UnlockWithOTP        = "UnlockWithOTP"
+    case RegisterUser         = "RegisterUser"
+    case RefreshToken         = "RefreshToken"
+    case ChangePassword       = "ChangePassword"
+    case LockerStateChanged   = "LockerStateChanged"
+    case LockerInvalidated    = "LockerInvalidated"
+    case LockerCreated        = "LockerCreated"
 }
 
 // MARK: -
@@ -67,7 +68,7 @@ public struct OAuth2Handler
 
 //==============================================================================
 public class Locker: NSObject, LockerAPI
-{
+{    
     public static let OAuth2RequestFormat              = "%@?state=profile&redirect_uri=%@&client_id=%@&response_type=code&access_type=offline&approval_prompt=force"
     internal static let ModuleName                     = "Locker"
     // MARK: Notifications ...
@@ -273,6 +274,8 @@ public class Locker: NSObject, LockerAPI
     fileprivate var _fixedUserPassword: String? = nil     // returned with distortUserPassword(), if set
     internal var _fixedNewUserPassword: String? = nil     // used as a new password instead of distortUserPassword(), if set
     fileprivate var _fixedCurrentTimestamp: TimeInterval? = nil //returned with getCurrentTimestamp() if set
+    
+    internal var backgroundQueue = DispatchQueue.init(label: "cz.applifting.locker.backgroundQueue", qos: .background)
     
     // MARK: Init ...
     

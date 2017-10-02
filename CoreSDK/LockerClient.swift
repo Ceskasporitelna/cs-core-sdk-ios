@@ -238,6 +238,61 @@ class LockerClient: NSObject
         self.addWsClientOperation( wsClientOperation )
     }
     
+    //--------------------------------------------------------------------------
+    func unlockAfterMigration( clientId: String, deviceFingerprint: String, passwordHash: String, completion: @escaping (UnlockResult) -> Void)
+    {
+        self.isClientCancelled = false
+        
+        let dataObject = UnlockRequestDTO(clientId:          clientId,
+                                          password:          passwordHash,
+                                          deviceFingerprint: deviceFingerprint,
+                                          scope:             self.locker.scope!,
+                                          nonce:             self.locker.generateNonce())
+        
+        // Generate SEK and encrypt object
+        let sekData       = self.locker.generateSecretData()
+        let requestObject = WebServiceUtils.encodeRequestObject(dataObject, key: sekData, publicRSAKey: self.locker.publicKey )
+        
+        let wsClient      = WebServiceClient( configuration: WebServicesClientConfiguration(endPoint: "\(self.locker.basePath)/\(self.basePath)/\(type(of: self).unlockEndPoint)",
+            apiKey: self.locker.webApiKey,
+            language: self.language,
+            requestSigningKey: self.requestSigningKey))
+        
+        let wsClientOperation = BlockOperation()
+        
+        wsClientOperation.addExecutionBlock( {
+            
+            if self.isClientCancelled {
+                completion(UnlockResult.failure(CoreSDKError(kind:.operationCancelled)))
+            }
+            
+            wsClient.post(requestObject) { (result:ApiCallResult<DataResponseDTO>) -> Void in
+                
+                if self.isClientCancelled {
+                    completion(UnlockResult.failure(CoreSDKError(kind:.operationCancelled)))
+                    return
+                }
+                
+                switch result {
+                case .success(let (data, _)):
+                    if let resultObject:UnlockResponseDTO = WebServiceUtils.decodeResponseObject(data, sek: sekData) {
+                        completion(UnlockResult.success(resultObject))
+                    }
+                    else {
+                        completion(UnlockResult.failure(LockerError(kind: .loginFailed)))
+                    }
+                    
+                case .failure(let (error, _)):
+                    completion(UnlockResult.failure(error))
+                }
+            }
+        })
+        
+        clog(Locker.ModuleName, activityName: LockerActivities.UnlockWithPassword.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Will send unlock\nURL: \(wsClient.path)\nJSON: \(dataObject.toJSONString())\nlock type:\(self.locker.lockType.toString())" )
+        
+        self.addWsClientOperation( wsClientOperation )
+    }
+    
     func unlockWithOneTimePassword( _ oneTimePassword: String, completion:@escaping (UnlockOTPResult) -> Void)
     {
         self.isClientCancelled = false

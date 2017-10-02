@@ -109,8 +109,11 @@ public enum LockerErrorKind: Int
      * An attempt to use not allowed LockType.
      */
     case wrongLockType                      = 1019   // LockerUI
-    
 
+    /*
+     * An unlock attempt after migration failed.
+     */
+    case migrationUnlockFailed              = 1020
 }
 
 //==============================================================================
@@ -144,7 +147,8 @@ public class LockerError: CSErrorBase
         LockerErrorKind.loginTimeOut.rawValue:               CoreSDK.localized( "err-session-timeout" ),
         LockerErrorKind.loginCanceled.rawValue:              CoreSDK.localized( "err-login-canceled" ),
         LockerErrorKind.protectedDataNotAvailable.rawValue:  CoreSDK.localized( "err-protected-data-not-available" ),
-        LockerErrorKind.wrongLockType.rawValue:              CoreSDK.localized( "err-wrong-lock-type" )
+        LockerErrorKind.wrongLockType.rawValue:              CoreSDK.localized( "err-wrong-lock-type" ),
+        LockerErrorKind.migrationUnlockFailed.rawValue:      CoreSDK.localized( "err-unlock-after-migration-failed" )
     ]
     
     

@@ -404,6 +404,21 @@ public extension String
         return data.base64EncodedString(options: []);
     }
     
+    //--------------------------------------------------------------------------
+    func sha256(salt: String) -> String
+    {
+        let inputData       = (self + salt).data(using: .utf8)
+        var digest          = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
+        
+        inputData!.withUnsafeBytes {
+            _ = CC_SHA256($0, CC_LONG(inputData!.count), &digest)
+        }
+        
+        let hexBytes = digest.map { String(format: "%02hhx", $0) };
+        
+        return hexBytes.joined(separator: "")
+    }
+    
     //NSData in, NSData out. No nonsense about encoding transformations.
     func sha256(_ key: Data) -> Data
     {

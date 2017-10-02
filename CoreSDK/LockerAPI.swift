@@ -154,8 +154,31 @@ public protocol LockerAPI
      - returns: True, if the urlPath is valid and contains the registration code, false otherwise.
     */
     func canContinueWithOAuth2UrlPath( _ urlPath: String ) -> Bool
+    
+    /**
+      Unlock after migration. This method will unlock you using the provided data and should be
+      used as the migration bridge to unlock without unnecessary new user registration.
+     
+      - parameter lockType:            The lockType used.
+      - parameter password:            The password in the raw String format.
+      - parameter passwordHashProcess: Providing you hash actual hash algorithm.
+      - parameter data:                Locker migration data.
+      - parameter callback:            The result callback.
+     */
+    func unlockAfterMigration(lockType:            LockType,
+                              password:            String,
+                              passwordHashProcess: @escaping PasswordHashProcess,
+                              data:                LockerMigrationDataDTO,
+                              completion :         @escaping UnlockCompletion
+                             )
 }
 
+/**
+ * Password hash process is required for
+ * unlockAfterMigration(password, passwordHashProcess, lockerMigrationData, callback)
+ * to handle custom password hashing before migration.
+ */
+public typealias PasswordHashProcess = ((String) -> String)
 
 //==============================================================================
 /**
@@ -205,7 +228,19 @@ public enum LockType: Int
     case gestureLock         = 2
     case noLock              = 3
     
-
+    public init(string: String)
+    {
+        switch string {
+        case CoreSDK.localized("auth-method-pin"):
+            self = .pinLock
+        case CoreSDK.localized("auth-method-fingerprint"):
+            self = .fingerprintLock
+        case CoreSDK.localized("auth-method-gesture"):
+            self = .gestureLock
+        default:
+            self = .noLock
+        }
+    }
     public func toString() -> String
     {
         switch ( self ) {

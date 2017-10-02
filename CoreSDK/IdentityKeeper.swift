@@ -645,8 +645,6 @@ public class IdentityKeeper: NSObject
         fireStatusChangeNotificationIfNeeded()
     }
     
-
-    
     func generateSecretData() -> Data
     {
         if self.fixedSessionSecretData != nil {
@@ -668,14 +666,6 @@ public class IdentityKeeper: NSObject
         self.lastNotificationState = self.lockStatus
     }
     
-//    let kLocalEncryptionKey     = "localEncryptionKey"
-//    let kEncryptionKey          = "encryptionKey"
-//    let kLockType               = "lockType"
-//    let kClientId               = "clientId"
-//    let kDeviceFingerprint      = "deviceFingerprint"
-//    let kOneTimePasswordKey     = "oneTimePasswordKey"
-//    let kRefreshToken           = "refreshToken"
-    
     //--------------------------------------------------------------------------
     func storeMigrationData(_ migrationData: MigrationKeychainData)
     {
@@ -688,44 +678,4 @@ public class IdentityKeeper: NSObject
         }
         self.saveKeychainDataSync(migrationData.encryptionKey)
     }
-    
-    //--------------------------------------------------------------------------
-//    func loadMigrationData() -> MigrationKeychainData?
-//    {
-//        let keychain                              = Keychain( service: CoreSDKKeychainService )
-//        var migrationData: MigrationKeychainData? = MigrationKeychainData()
-//
-//        self.propertyQueue.sync {
-//            do {
-//                migrationData!.localEncryptionKey   = try keychain.getString(kLocalEncryptionKey)
-//                migrationData!.encryptionKey        = try keychain.getString(kEncryptionKey)
-//                migrationData!.lockType             = LockType(string: try keychain.getString(kLockType)!)
-//                migrationData!.clientId             = try keychain.getString(kClientId)
-//                migrationData!.deviceFingerprint    = try keychain.getString(kDeviceFingerprint)
-//                migrationData!.oneTimePasswordKey   = try keychain.getString(kOneTimePasswordKey)
-//                migrationData!.refreshToken         = try keychain.getString(kRefreshToken)
-//            }
-//            catch let error {
-//                clog(Locker.ModuleName, activityName: self.lockStatus.toActivityName(), fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.error, format: "Failed to load migration data with error: \(error)")
-//                migrationData = nil
-//            }
-//        }
-//        return migrationData
-//    }
-    
-    //--------------------------------------------------------------------------
-//    func wipeMigrationData()
-//    {
-//        let keychain = Keychain( service: CoreSDKKeychainService )
-//        self.propertyQueue.sync {
-//            try? keychain.remove(kLocalEncryptionKey)
-//            try? keychain.remove(kEncryptionKey)
-//            try? keychain.remove(kLockType)
-//            try? keychain.remove(kClientId)
-//            try? keychain.remove(kDeviceFingerprint)
-//            try? keychain.remove(kOneTimePasswordKey)
-//            try? keychain.remove(kRefreshToken)
-//        }
-//    }
-    
 }

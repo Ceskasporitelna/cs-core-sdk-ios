@@ -89,7 +89,7 @@ extension Locker
                             self.unregisterUser()
                             clog(Locker.ModuleName, activityName: LockerActivities.UserUnlock.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.error, format: "Password change after migration failed with error: %@", error.localizedDescription )
                             self.completionQueue.async {
-                                completion(.failure(error), nil)
+                                completion(.failure(LockerError.errorOfKind(.migrationUnlockFailed, underlyingError: error)), nil)
                             }
                         }
                     }
@@ -97,7 +97,9 @@ extension Locker
                 case .failure(let error):
                     self.unregisterUser()
                     clog(CoreSDK.ModuleName, activityName: LockerActivities.UnlockAfterMigration.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: .error, format: "Migration unlock failed with error: \(error.localizedDescription)." )
-                    completion(.failure(LockerError.errorOfKind(.migrationUnlockFailed)), nil)
+                    self.completionQueue.async {
+                        completion(.failure(LockerError.errorOfKind(.migrationUnlockFailed, underlyingError: error)), nil)
+                    }
                     return
                 }
             }

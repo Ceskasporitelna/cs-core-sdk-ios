@@ -201,7 +201,8 @@ public class LockerError: CSErrorBase
     class public func errorOfKind( _ kind: LockerErrorKind, underlyingError: NSError? ) -> LockerError
     {
         if let error: NSError = underlyingError {
-            return LockerError(domain: LockerError.ERROR_DOMAIN, code:kind.rawValue, userInfo:error.userInfo)
+            let userInfoDictionary = [NSUnderlyingErrorKey : error]
+            return LockerError(domain: LockerError.ERROR_DOMAIN, code:kind.rawValue, userInfo:userInfoDictionary)
         }
         else {
             return LockerError(kind: kind)

@@ -497,7 +497,8 @@ class LockerTests: XCTestCase
         
         let changePassExpectation = self.expectation( description: "Changing password ..." )
         //Passwords are fixed in the setUp() function
-        self.locker.changePassword(oldPassword: "", newLockType: LockType.gestureLock, newPassword: "") { (result, remainingAttempts) -> () in
+        self.locker.setFixedUserPassword( "542e47007247fb36c78fe02e97887f8b35f62659628ff6a75a8987d72e2f498e",fixedNewPassword: "645952bb2dee5d421b311742b62d34e4600f561059d25420fc89195e4aa64c4b" )
+        self.locker.changePassword(oldPassword: "", newLockType: .gestureLock, newPassword: "") { (result, remainingAttempts) -> () in
             switch result {
             case .success:
                 changePassExpectation.fulfill()
@@ -513,7 +514,7 @@ class LockerTests: XCTestCase
         
         //Verify state after password change
         XCTAssertEqual(LockStatus.unlocked, self.locker.status.lockStatus)
-        XCTAssertEqual(LockType.gestureLock, self.locker.status.lockType)
+        XCTAssertEqual(.gestureLock, self.locker.status.lockType)
         XCTAssertEqual("d02017df-96f0-4766-90e8-383661164495", self.locker.status.clientId)
         XCTAssertEqual(true, self.locker.status.hasAesEncryptionKey)
         XCTAssertEqual(true, self.locker.status.hasOneTimePasswordKey)

@@ -28,7 +28,7 @@ extension Locker
                                 newPassword: String?,
                                 completion: @escaping UnlockCompletion )
     {
-        self.changePasswordInternal(oldPassword: oldPassword, newLockType: self.lockType, newPassword: newPassword, completion: completion )
+        self.changePasswordInternal(oldPassword: oldPassword, newLockType: newLockType, newPassword: newPassword, completion: completion )
     }
     
     //--------------------------------------------------------------------------

@@ -161,7 +161,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
     //--------------------------------------------------------------------------
     func testUnlockMigrationPasswordServerUnavailable()
     {
-        self.judgeSession.setNextCase("core.locker.unlockMigration.serverUnavailable", xcTestCase: self)
+        self.judgeSession.setNextCase("core.locker.unlockMigration.password.serverUnavailable", xcTestCase: self)
         
         let expectation                       = self.expectation( description: "Unlock migration, password server error ..." )
         

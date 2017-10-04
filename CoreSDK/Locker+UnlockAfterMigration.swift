@@ -26,15 +26,7 @@ extension Locker
         }
         
         let migrationData = MigrationKeychainData()
-//        let randomKey     = CoreSDKSymmetricCryptor.randomStringOfLength(32)
-//
-//        guard let encodedFingerprint = self.deviceFingerprint?.sha256(randomKey) else {
-//            clog(CoreSDK.ModuleName, activityName: LockerActivities.UnlockAfterMigration.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: .error, format: "Migration unlock failed. Device fingerprint is not defined." )
-//            completion(.failure(LockerError.errorOfKind(.migrationUnlockFailed)), nil)
-//            return
-//        }
         
-        //migrationData.localEncryptionKey = encodedFingerprint
         migrationData.encryptionKey      = data.encryptionKey
         migrationData.lockType           = lockType
         migrationData.clientId           = data.clientId

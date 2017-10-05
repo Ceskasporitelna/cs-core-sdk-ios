@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Added
+- Migration from custom Locker implementation to Locker v1
+
 ## [1.0.5] - 2017-08-25
 
 ## Fixed

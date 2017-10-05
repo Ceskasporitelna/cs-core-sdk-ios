@@ -229,7 +229,7 @@ extension Locker
         })
     }
     
-    fileprivate func finishUserUnlockWithResponseDTO( _ responseDTO: UnlockResponseDTO ) -> ( result: CoreResult<Bool>, remainingAttempts: Int? )
+    internal func finishUserUnlockWithResponseDTO(_ responseDTO: UnlockResponseDTO) -> ( result: CoreResult<Bool>, remainingAttempts: Int? )
     {
         do {
             try self.identityKeeper.attemptToAccessKeychainData()

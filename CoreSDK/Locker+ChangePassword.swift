@@ -20,15 +20,35 @@ extension Locker
         self.changePassword(oldPassword: oldPassword, newLockType: self.lockType, newPassword: newPassword, completion: completion );
     }
     
+    
+    
     //--------------------------------------------------------------------------
     public func changePassword( oldPassword: String?,
                                 newLockType: LockType,
                                 newPassword: String?,
                                 completion: @escaping UnlockCompletion )
     {
+        self.changePasswordInternal(oldPassword: oldPassword, newLockType: newLockType, newPassword: newPassword, completion: completion )
+    }
+    
+    //--------------------------------------------------------------------------
+    internal func changePassword( customHash: @escaping PasswordHashProcess,
+                                  password:   String,
+                                  completion: @escaping UnlockCompletion )
+    {
+        self.changePasswordInternal(oldPassword: customHash(password), distortOldPassword: false, newLockType: self.lockType, newPassword: password, completion: completion )
+    }
+    
+    //--------------------------------------------------------------------------
+    fileprivate func changePasswordInternal( oldPassword:        String?,
+                                             distortOldPassword: Bool = true,
+                                             newLockType:        LockType,
+                                             newPassword:        String?,
+                                             completion:         @escaping UnlockCompletion )
+    {
         var oldPasswordHash: String;
         if let userOldPassword = oldPassword {
-            oldPasswordHash = self.distortUserPassword( userOldPassword );
+            oldPasswordHash = distortOldPassword ? self.distortUserPassword( userOldPassword ) : userOldPassword
         }
         else {
             if self.lockType == LockType.noLock, let noAuthPassword = self.noAuthTypePassword  {

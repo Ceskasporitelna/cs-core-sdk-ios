@@ -564,7 +564,6 @@ public class IdentityKeeper: NSObject
                 clog( CoreSDK.ModuleName, activityName: CoreSDKActivities.KeychainWiping.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.info, format: "Locker keychain successfully wiped." )
             }
         }
-
     }
     
     func saveKeychainData(_ encryptionKey : String?)
@@ -646,8 +645,6 @@ public class IdentityKeeper: NSObject
         fireStatusChangeNotificationIfNeeded()
     }
     
-
-    
     func generateSecretData() -> Data
     {
         if self.fixedSessionSecretData != nil {
@@ -669,4 +666,16 @@ public class IdentityKeeper: NSObject
         self.lastNotificationState = self.lockStatus
     }
     
+    //--------------------------------------------------------------------------
+    func storeMigrationData(_ migrationData: MigrationKeychainData)
+    {
+        self.propertyQueue.sync {
+            self._keychainDkDTO?.lockType           = migrationData.lockType
+            self._keychainDkDTO?.clientId           = migrationData.clientId
+            self._keychainDkDTO?.deviceFingerprint  = migrationData.deviceFingerprint
+            self._keychainDkDTO?.oneTimePasswordKey = migrationData.oneTimePasswordKey
+            self._keychainEkDTO?.refreshToken       = migrationData.refreshToken
+        }
+        self.saveKeychainDataSync(migrationData.encryptionKey)
+    }
 }

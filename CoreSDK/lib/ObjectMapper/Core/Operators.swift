@@ -399,7 +399,7 @@ public func <- <T: Mappable>(left: inout Array<Array<T>>!, right: Map) {
 // MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
 
 /// Array of Mappable objects
-public func <- <T: Mappable>(left: inout Set<T>, right: Map) where T: Hashable {
+public func <- <T: Mappable>(left: inout Set<T>, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
 		FromJSON.objectSet(&left, object: right.currentValue)
 	} else {
@@ -409,7 +409,7 @@ public func <- <T: Mappable>(left: inout Set<T>, right: Map) where T: Hashable {
 
 
 /// Optional array of Mappable objects
-public func <- <T: Mappable>(left: inout Set<T>?, right: Map) where T: Hashable {
+public func <- <T: Mappable>(left: inout Set<T>?, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
 		FromJSON.optionalObjectSet(&left, object: right.currentValue)
 	} else {
@@ -418,7 +418,7 @@ public func <- <T: Mappable>(left: inout Set<T>?, right: Map) where T: Hashable 
 }
 
 /// Implicitly unwrapped Optional array of Mappable objects
-public func <- <T: Mappable>(left: inout Set<T>!, right: Map) where T: Hashable {
+public func <- <T: Mappable>(left: inout Set<T>!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
 		FromJSON.optionalObjectSet(&left, object: right.currentValue)
 	} else {

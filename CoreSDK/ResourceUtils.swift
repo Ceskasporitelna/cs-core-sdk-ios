@@ -55,7 +55,7 @@ public class ResourceUtils
     }
     
     //MARK: -
-    public static func CallGet<TResponse:WebApiEntity>(
+    public static func CallGet<TResponse>(
         _ resource : Resource,
         parameters:[String:AnyObject]?,
         transform: WebApiTransform<TResponse>?,
@@ -63,7 +63,7 @@ public class ResourceUtils
             CallGet(resource, pathSuffix: nil, parameters: parameters, transform: transform, callback: callback)
     }
     
-    public static func CallGet<TResponse:WebApiEntity>(
+    public static func CallGet<TResponse>(
         _ resource : Resource,
         pathSuffix : String?,
         parameters:[String:AnyObject]?,
@@ -91,7 +91,7 @@ public class ResourceUtils
     }
     
     //MARK: -
-    public static func CallCreate<TRequest:Mappable,TResponse:WebApiEntity>(
+    public static func CallCreate<TRequest:Mappable,TResponse>(
         _ resource : Resource,
         payload:TRequest?,
         transform:  WebApiTransform<TResponse>?,
@@ -99,7 +99,7 @@ public class ResourceUtils
             CallCreate(resource, pathSuffix:nil, payload: payload, transform: transform, callback: callback)
     }
     
-    public static func CallCreate<TRequest:Mappable,TResponse:WebApiEntity>(
+    public static func CallCreate<TRequest:Mappable,TResponse>(
         _ resource : Resource,
         pathSuffix : String?,
         payload:TRequest?,
@@ -157,7 +157,7 @@ public class ResourceUtils
     }
     
     //MARK: -
-    public static func CallDelete<TResponse:WebApiEntity>(
+    public static func CallDelete<TResponse>(
         _ resource : Resource,
         parameters:[String:AnyObject]?,
         transform:  WebApiTransform<TResponse>?,
@@ -165,7 +165,7 @@ public class ResourceUtils
             CallDelete(resource, pathSuffix: nil, parameters: parameters, transform: transform, callback: callback)
     }
 
-    public static func CallDelete<TResponse:WebApiEntity>(
+    public static func CallDelete<TResponse>(
         _ resource : Resource,
         pathSuffix : String?,
         parameters:[String:AnyObject]?,
@@ -191,7 +191,7 @@ public class ResourceUtils
     }
     
     //MARK: -
-    public static func CallUpdate<TRequest:Mappable,TResponse:WebApiEntity>(
+    public static func CallUpdate<TRequest:Mappable,TResponse>(
         _ resource : Resource,
         payload:TRequest?,
         transform:  WebApiTransform<TResponse>?,
@@ -199,7 +199,7 @@ public class ResourceUtils
             CallUpdate(resource, pathSuffix: nil, payload: payload, transform: transform, callback: callback)
     }
     
-    public static func CallUpdate<TRequest:Mappable,TResponse:WebApiEntity>(
+    public static func CallUpdate<TRequest:Mappable,TResponse>(
         _ resource : Resource,
         pathSuffix : String?,
         payload:TRequest?,
@@ -262,7 +262,7 @@ public class ResourceUtils
         })
     }
     
-    public static func CallList<TItem:WebApiEntity>(
+    public static func CallList<TItem>(
         _ resource : Resource,
         parameters:[String:AnyObject]?,
         transform:  WebApiTransform<ListResponse<TItem>>?,
@@ -270,7 +270,7 @@ public class ResourceUtils
             CallList(resource, pathSuffix: nil, parameters: parameters, transform: transform, callback: callback)
     }
     
-    public static func CallList<TItem:WebApiEntity>(
+    public static func CallList<TItem>(
         _ resource : Resource,
         pathSuffix : String?,
         parameters:[String:AnyObject]?,
@@ -279,7 +279,7 @@ public class ResourceUtils
             CallList(resource, itemJSONKey: nil, pathSuffix: pathSuffix, parameters: parameters, transform: transform, callback: callback)
     }
     
-    public static func CallList<TItem:WebApiEntity>(
+    public static func CallList<TItem>(
         _ resource : Resource,
         itemJSONKey : String?,
         pathSuffix : String?,
@@ -327,7 +327,7 @@ public class ResourceUtils
     }
     
   
-    public static func CallPaginatedList<TItem:WebApiEntity>(
+    public static func CallPaginatedList<TItem>(
         _ resource : Resource,
         itemJSONKey  : String,
         parameters:[String:AnyObject]?,
@@ -337,7 +337,7 @@ public class ResourceUtils
         CallPaginatedList(resource, pathSuffix: nil, itemJSONKey: itemJSONKey, parameters: parameters, transform: transform, callback: callback)
     }
     
-    public static func CallPaginatedList<TItem:WebApiEntity>(
+    public static func CallPaginatedList<TItem>(
         _ resource : Resource,
         pathSuffix : String?,
         itemJSONKey  : String,
@@ -377,7 +377,7 @@ public class ResourceUtils
     }
     
     //MARK: -
-    public static func CallUpload<TResponse:WebApiEntity>(
+    public static func CallUpload<TResponse>(
         _ resource : Resource,
         method : Method,
         data:Data,
@@ -388,7 +388,7 @@ public class ResourceUtils
         CallUpload(resource, pathSuffix: nil, method: method, data: data, headers: headers, transform: transform, callback: callback)
     }
     
-    public static func CallUpload<TResponse:WebApiEntity>(
+    public static func CallUpload<TResponse>(
         _ resource : Resource,
         pathSuffix : String?,
         method : Method,

@@ -282,7 +282,7 @@ public class Locker: NSObject, LockerAPI
     //--------------------------------------------------------------------------
     required public init?( attributes: LockerAttributes )
     {
-        let protectedDataAvailable  = UIApplication.shared.isProtectedDataAvailable
+        let protectedDataAvailable = IdentityKeeper.protectedDataAvailable
         
         guard let clientId          = attributes.clientId,
               let clientSecret      = attributes.clientSecret,
@@ -477,5 +477,10 @@ public class Locker: NSObject, LockerAPI
             assert( false, "CoreSDK.oauth2handler not set!" )
             return false
         }
+    }
+    
+    public func wipeCurrentUser()
+    {
+        self.identityKeeper.wipeKeychainDataSync()
     }
 }

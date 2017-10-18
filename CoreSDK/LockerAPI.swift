@@ -171,6 +171,8 @@ public protocol LockerAPI
                               data:                LockerMigrationDataDTO,
                               completion :         @escaping UnlockCompletion
                              )
+    
+    func wipeCurrentUser()
 }
 
 /**

@@ -96,6 +96,7 @@ extension Locker
         var passwordHash: String
         if let userPassword = password {
             passwordHash = self.distortUserPassword( userPassword )
+            print("*** PASSWORD HASH ***\n\(passwordHash)\n*** PASSWORD HASH ***")
         } else {
             if lockType == LockType.noLock {
                 self.noAuthTypePassword = self.generateNonce()
@@ -138,6 +139,14 @@ extension Locker
                 clog(Locker.ModuleName, activityName: LockerActivities.UserRegistration.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Parsing of RegistrationResponseDTO failed.\nResponse data:%@", responseDTO.toJSONString() )
                 return CoreResult<Bool>.failure(LockerError(kind: .parseError))
         }
+        print("*** EK Data ***")
+        print("clientId:           \(clientId)")
+        print("deviceFingerprint:  \(deviceFingerprint)")
+        print("encryptionKey:      \(encryptionKey)")
+        print("oneTimePasswordKey: \(oneTimePassword)")
+        print("refreshToken:       \(refreshToken)")
+        print("*** EK Data ***")
+        
         self.identityKeeper.initEkData()
         self.clientId              = clientId
         self.deviceFingerprint     = deviceFingerprint

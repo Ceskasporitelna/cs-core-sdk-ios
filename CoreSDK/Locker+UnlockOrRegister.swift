@@ -202,7 +202,7 @@ extension Locker
                     
                     if let attemptsLeft = parseResult.remainingAttempts {
                         clog(CoreSDK.ModuleName, activityName: LockerActivities.UnlockWithPassword.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.warning, format: "Attempts left:\(attemptsLeft)." )
-                        if attemptsLeft <= 0 || self.lockType == LockType.fingerprintLock {
+                        if attemptsLeft <= 0 || self.lockType == LockType.biometricLock {
                             fireCompletion = false
                             self.unregisterUserWithCompletion({ result in
                                 self.completionQueue.async(execute: { completion?( CoreResult<Bool>.failure( error ), 0 ) })

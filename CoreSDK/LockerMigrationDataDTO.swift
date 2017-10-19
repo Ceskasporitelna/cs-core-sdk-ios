@@ -21,7 +21,7 @@ public class LockerMigrationDataDTO: ApiDTO
     var refreshToken:                     String!
     
     //--------------------------------------------------------------------------
-    override init()
+    override public init()
     {
         super.init()
         

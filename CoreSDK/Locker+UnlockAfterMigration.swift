@@ -40,7 +40,13 @@ extension Locker
             
             // Unlock with old version of password ...
             
-            self.lockerClient.unlockAfterMigration(clientId: data.clientId, deviceFingerprint: data.deviceFingerprint, passwordHash: passwordHashProcess(password)) { result in
+            let oldPassword = passwordHashProcess(password)
+            if #available(iOS 9.0, *) {}
+            else {
+                self.touchIdToken = oldPassword
+            }
+            
+            self.lockerClient.unlockAfterMigration(clientId: data.clientId, deviceFingerprint: data.deviceFingerprint, passwordHash: oldPassword) { result in
                 switch result {
                 case .success(let unlockResponse):
                     

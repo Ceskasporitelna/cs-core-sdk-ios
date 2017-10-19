@@ -31,7 +31,7 @@ public protocol Transformable
 //==============================================================================
 public protocol TransformableArray: Transformable
 {
-    associatedtype T
+    //associatedtype T
     
     /**
      * Returns the ObjectMapper transformation array.

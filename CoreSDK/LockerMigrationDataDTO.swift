@@ -14,11 +14,11 @@ import Foundation
 //==============================================================================
 public class LockerMigrationDataDTO: ApiDTO
 {
-    var clientId:                         String!
-    var deviceFingerprint:                String!
-    var encryptionKey:                    String!
-    var oneTimePasswordKey:               String!
-    var refreshToken:                     String!
+    public var clientId:                         String!
+    public var deviceFingerprint:                String!
+    public var encryptionKey:                    String!
+    public var oneTimePasswordKey:               String!
+    public var refreshToken:                     String!
     
     //--------------------------------------------------------------------------
     override public init()

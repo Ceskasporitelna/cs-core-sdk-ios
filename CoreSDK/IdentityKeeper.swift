@@ -23,15 +23,30 @@ let kLockerEnvironmentUserDefaultsKey    = "coresdk.locker.environment"
 public class IdentityKeeper: NSObject
 {
     
-    public var protectedDataAvailable: Bool {
-        return UIApplication.shared.isProtectedDataAvailable
+    public class var protectedDataAvailable: Bool {
+        
+        var result: Bool!
+        
+        if Thread.isMainThread {
+            result = UIApplication.shared.isProtectedDataAvailable
+        }
+        else {
+            let semaphore = DispatchSemaphore(value: 0)
+            GlobalMainQueue.async {
+                result = UIApplication.shared.isProtectedDataAvailable
+                semaphore.signal()
+            }
+            semaphore.wait()
+        }
+        
+        return result
     }
     
     public var clientId: String? {
         get {
             var result: String!
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.clientId
@@ -68,7 +83,7 @@ public class IdentityKeeper: NSObject
         get {
             var result: String?
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = ( self.fixedDeviceFingerprint != nil ? self.fixedDeviceFingerprint : self._keychainDkDTO?.deviceFingerprint )
@@ -86,7 +101,7 @@ public class IdentityKeeper: NSObject
         get {
             var result: String!
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.oneTimePasswordKey
@@ -105,7 +120,7 @@ public class IdentityKeeper: NSObject
             var result: LockType!
             self.propertyQueue.sync(execute: {
 
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.lockType
@@ -130,7 +145,7 @@ public class IdentityKeeper: NSObject
             let encryptionKey = self.aesEncryptionKey
             self.propertyQueue.sync(execute: {
 
-                if self._keychainEkDTOReadPending && UIApplication.shared.isProtectedDataAvailable {
+                if self._keychainEkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadEkDataSync(encryptionKey)
                 }
                 
@@ -151,7 +166,7 @@ public class IdentityKeeper: NSObject
             var result: UInt64!
             let encryptionKey = self.aesEncryptionKey
             self.propertyQueue.sync(execute: {
-                if self._keychainEkDTOReadPending && UIApplication.shared.isProtectedDataAvailable {
+                if self._keychainEkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadEkDataSync(encryptionKey)
                 }
                 result = self._keychainEkDTO?.accessTokenExpiration?.uint64Value
@@ -173,7 +188,7 @@ public class IdentityKeeper: NSObject
         get {
             var result: String!
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.touchIdToken
@@ -202,7 +217,7 @@ public class IdentityKeeper: NSObject
             var result: String!
             let encryptionKey = self.aesEncryptionKey
             self.propertyQueue.sync(execute: {
-                if self._keychainEkDTOReadPending && UIApplication.shared.isProtectedDataAvailable {
+                if self._keychainEkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadEkDataSync(encryptionKey)
                 }
                 result = self._keychainEkDTO?.refreshToken
@@ -220,7 +235,7 @@ public class IdentityKeeper: NSObject
         get {
             var result: String!
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.oauth2Code
@@ -239,7 +254,7 @@ public class IdentityKeeper: NSObject
         get {
             var result: String!
             self.propertyQueue.sync(execute: {
-                if self._keychainDkDTOReadPending && self.protectedDataAvailable {
+                if self._keychainDkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadDkDataSync()
                 }
                 result = self._keychainDkDTO?.noAuthTypePassword
@@ -258,7 +273,7 @@ public class IdentityKeeper: NSObject
             var result: String!
             let encryptionKey = self.aesEncryptionKey
             self.propertyQueue.sync(execute: {
-                if self._keychainEkDTOReadPending && UIApplication.shared.isProtectedDataAvailable {
+                if self._keychainEkDTOReadPending && type(of: self).protectedDataAvailable {
                     self.loadEkDataSync(encryptionKey)
                 }
                 result = self._keychainEkDTO?.tokenType
@@ -313,7 +328,7 @@ public class IdentityKeeper: NSObject
     //--------------------------------------------------------------------------
     public func attemptToAccessKeychainData() throws
     {
-        let dataAvailable = self.protectedDataAvailable
+        let dataAvailable = type(of: self).protectedDataAvailable
         
         if self._keychainDkDTOReadPending && dataAvailable {
             self.loadDkDataSync()
@@ -331,7 +346,7 @@ public class IdentityKeeper: NSObject
     //--------------------------------------------------------------------------
     fileprivate func loadApiDTOWithKeychain<T: ApiDTO>( _ keychain: Keychain, forKey: String, passwordData: Data ) throws -> T?
     {
-        if !UIApplication.shared.isProtectedDataAvailable {
+        if !type(of: self).protectedDataAvailable {
             throw LockerError.errorOfKind(.protectedDataNotAvailable)
         }
         
@@ -389,7 +404,7 @@ public class IdentityKeeper: NSObject
         //We can make this check only in the foreground otherwise, the NSUserDefaults could be corrupted. 
         //See: http://stackoverflow.com/questions/20269116/nsuserdefaults-loosing-its-keys-values-when-phone-is-rebooted-but-not-unlocked
         //We skip the check if we cannot get to the data and check it on the sensitive data access everytime, until we can perform the check
-        if self.freshInstallWipeCheckPerformed == false && UIApplication.shared.isProtectedDataAvailable {
+        if self.freshInstallWipeCheckPerformed == false && type(of: self).protectedDataAvailable {
             self.freshInstallWipeCheckPerformed = true
             if UserDefaults.standard.bool(forKey: kLockerInitializationUserDefaultsKey) == false{
                  UserDefaults.standard.set(true, forKey: kLockerInitializationUserDefaultsKey)
@@ -406,7 +421,7 @@ public class IdentityKeeper: NSObject
         //We can make this check only in the foreground otherwise, the NSUserDefaults could be corrupted.
         //See: http://stackoverflow.com/questions/20269116/nsuserdefaults-loosing-its-keys-values-when-phone-is-rebooted-but-not-unlocked
         //We skip the check if we cannot get to the data for now
-        if self.environmentChangedWipeCheckPerformed == false && UIApplication.shared.isProtectedDataAvailable{
+        if self.environmentChangedWipeCheckPerformed == false && type(of: self).protectedDataAvailable{
             self.environmentChangedWipeCheckPerformed = true
             //Compute sha1 of clientId and clientSecert
             let sha1 = "\(oAuthClientId):\(oAuthClientSecret)".sha1()

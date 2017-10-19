@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Fixed
+- Migration from custom Locker implementation to Locker v1 (for iOS version < 9)
+
 ## [1.1.0] - 2017-10-05
 
 ## Added

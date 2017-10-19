@@ -217,14 +217,14 @@ public enum LockStatus: UInt8
 /**
     The lock type selected by the user.
     - PinLock: Locked by PIN.
-    - FingerprintLock: Locked by TouchID ( available only for iPhone 5s and above, iPad Air 2 and above).
+    - BiometricLock: Locked by Biometric - TouchID or FaceID ( available only for iPhone 5s and above, iPad Air 2 and above).
     - GestureLock: Locked by gesture.
     - NoLock: Locked by generated token without user input.
 */
 public enum LockType: Int
 {
     case pinLock             = 0
-    case fingerprintLock     = 1
+    case biometricLock       = 1
     case gestureLock         = 2
     case noLock              = 3
     
@@ -234,7 +234,7 @@ public enum LockType: Int
         case CoreSDK.localized("auth-method-pin"):
             self = .pinLock
         case CoreSDK.localized("auth-method-fingerprint"):
-            self = .fingerprintLock
+            self = .biometricLock
         case CoreSDK.localized("auth-method-gesture"):
             self = .gestureLock
         default:
@@ -245,7 +245,7 @@ public enum LockType: Int
     {
         switch ( self ) {
         case .pinLock:         return CoreSDK.localized("auth-method-pin")
-        case .fingerprintLock: return CoreSDK.localized("auth-method-fingerprint")
+        case .biometricLock: return CoreSDK.localized("auth-method-fingerprint")
         case .gestureLock:     return CoreSDK.localized("auth-method-gesture")
         case .noLock:          return CoreSDK.localized("auth-method-none")
         }

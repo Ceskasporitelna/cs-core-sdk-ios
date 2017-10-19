@@ -46,7 +46,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -88,7 +88,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -128,7 +128,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
 
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -173,7 +173,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -218,7 +218,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -263,7 +263,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -308,7 +308,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")
@@ -353,7 +353,7 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
-        self.locker.unlockAfterMigration(lockType: .fingerprintLock,
+        self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordHashProcess: { password in
                                             return password.sha256(salt: "f74f982a24085793")

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Added
+- FaceID support (fingerprintLock changed to biometricLock)
+
 ## [1.1.1] - 2017-10-19
 
 ## Fixed

@@ -180,8 +180,7 @@ public enum LogLevel: Int8
 
 
 //==============================================================================
-public class Environment : NSObject
-{
+@objc public class Environment : NSObject {
     
     public static let Sandbox = Environment(
         apiContextBaseUrl: "https://api.csas.cz/sandbox/webapi",

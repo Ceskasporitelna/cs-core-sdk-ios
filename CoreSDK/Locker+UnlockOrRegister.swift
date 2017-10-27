@@ -95,6 +95,7 @@ extension Locker
         
         var passwordHash: String
         if let userPassword = password {
+            print("*** PASSWORD ***\n\(userPassword)\n*** PASSWORD ***")
             passwordHash = self.distortUserPassword( userPassword )
             print("*** PASSWORD HASH ***\n\(passwordHash)\n*** PASSWORD HASH ***")
         } else {

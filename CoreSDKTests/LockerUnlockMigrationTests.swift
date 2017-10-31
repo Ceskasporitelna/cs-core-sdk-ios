@@ -46,11 +46,16 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-                                         },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -88,11 +93,16 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-                                         },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -128,11 +138,16 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
 
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-                                         },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -172,12 +187,17 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.deviceFingerprint  = "f74f982a24085793"
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
-        
+
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-        },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -218,11 +238,17 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
+        
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-        },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -263,11 +289,16 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-        },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -308,11 +339,17 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
+        
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-        },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):
@@ -353,11 +390,16 @@ class LockerUnlockMigrationTests: LockerTestsBase
         lockerMigrationDTO.oneTimePasswordKey = "0eaBoyBkUdlZ8X0T/xrntoxK5/MHi2vFt8ui6Zd7SmY="
         lockerMigrationDTO.encryptionKey      = "jWbfCsdDeNoLHa93nCCiDf9T+1GldkkALk2T2uVNRnw="
         
+        let passwordMigrationProcess          = PasswordMigrationProcess(
+            hashPassword: { (password) -> String in
+                return password.sha256(salt: "f74f982a24085793")
+        },
+            transformPassword: { (oldPassword) -> String in
+                return oldPassword
+        })
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
-                                         passwordHashProcess: { password in
-                                            return password.sha256(salt: "f74f982a24085793")
-        },
+                                         passwordMigrationProcess: passwordMigrationProcess,
                                          data: lockerMigrationDTO) { result in
                                             switch result.0 {
                                             case .success(_):

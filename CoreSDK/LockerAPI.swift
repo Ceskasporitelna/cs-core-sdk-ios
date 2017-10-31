@@ -159,26 +159,73 @@ public protocol LockerAPI
       Unlock after migration. This method will unlock you using the provided data and should be
       used as the migration bridge to unlock without unnecessary new user registration.
      
-      - parameter lockType:            The lockType used.
-      - parameter password:            The password in the raw String format.
-      - parameter passwordHashProcess: Providing you hash actual hash algorithm.
-      - parameter data:                Locker migration data.
-      - parameter callback:            The result callback.
+      - parameter lockType:                 The lockType used.
+      - parameter password:                 The password in the raw String format.
+      - parameter passwordMigrationProcess: Providing you hash actual hash algorithm.
+      - parameter data:                     Locker migration data.
+      - parameter callback:                 The result callback.
      */
-    func unlockAfterMigration(lockType:            LockType,
-                              password:            String,
-                              passwordHashProcess: @escaping PasswordHashProcess,
-                              data:                LockerMigrationDataDTO,
-                              completion :         @escaping UnlockCompletion
+    func unlockAfterMigration(lockType:                 LockType,
+                              password:                 String,
+                              passwordMigrationProcess: PasswordMigrationProcess,
+                              data:                     LockerMigrationDataDTO,
+                              completion :              @escaping UnlockCompletion
                              )
+    
+    func wipeCurrentUser()
 }
 
+//==============================================================================
 /**
- * Password hash process is required for
- * unlockAfterMigration(password, passwordHashProcess, lockerMigrationData, callback)
+ * Class PasswordMigrationProcess is required for
+ * unlockAfterMigration(password, passwordMigrationProcess, lockerMigrationData, callback)
  * to handle custom password hashing before migration.
  */
-public typealias PasswordHashProcess = ((String) -> String)
+public class PasswordMigrationProcess
+{
+    /**
+      Transform password according to used hashing algorithm with appropriate salt.
+     
+      - parameter password:  Password in a raw format before hashing
+      - returns: hashed password
+     */
+    var hashPassword:     ((_ password: String) -> String)
+    
+    /**
+     * Migrate old password string to locker type password string.
+     * Required only for lock types .gestureLock and .pinLock
+     * --------------------------------------------------
+     * GESTURE format: column * matrix_size + row
+     * coordinate system is situated into up-left corner.
+     * example (gesture grid 3x3, gesture length 5):
+     * -------
+     * |x|x|x|
+     * -------
+     * |0|0|x|
+     * -------
+     * |0|0|x|
+     * -------
+     * key = "0003060708"
+     * --------------------------------------------------
+     * PIN format: "123....", numeric value entered by keypad.
+     * -------------------------------------------------------------------------
+     * HASH computing:
+     * hash = (key + deviceFingerprint + vendorIdentifier).sha256()
+     * -------------------------------------------------------------------------
+     
+     - parameter oldPassword: old password in a format used in previous implementation
+     - returns: the new password in a format used in Locker SDK implementation. See above description
+     */
+    var transformPassword:((_ oldPassword: String) -> String)
+    
+    //--------------------------------------------------------------------------
+    init(hashPassword: @escaping ((_ password: String) -> String), transformPassword: @escaping ((_ oldPassword: String) -> String))
+    {
+        self.hashPassword      = hashPassword
+        self.transformPassword = transformPassword
+    }
+}
+
 
 //==============================================================================
 /**

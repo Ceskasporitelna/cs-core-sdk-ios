@@ -32,11 +32,11 @@ extension Locker
     }
     
     //--------------------------------------------------------------------------
-    internal func changePassword( customHash: @escaping PasswordHashProcess,
+    internal func changePassword( customHash: PasswordMigrationProcess,
                                   password:   String,
                                   completion: @escaping UnlockCompletion )
     {
-        self.changePasswordInternal(oldPassword: customHash(password), distortOldPassword: false, newLockType: self.lockType, newPassword: password, completion: completion )
+        self.changePasswordInternal(oldPassword: customHash.hashPassword(password), distortOldPassword: false, newLockType: self.lockType, newPassword: password, completion: completion )
     }
     
     //--------------------------------------------------------------------------

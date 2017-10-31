@@ -138,6 +138,7 @@ extension Locker
                 clog(Locker.ModuleName, activityName: LockerActivities.UserRegistration.rawValue, fileName: #file, functionName: #function, lineNumber: #line, logLevel: LogLevel.debug, format: "Parsing of RegistrationResponseDTO failed.\nResponse data:%@", responseDTO.toJSONString() )
                 return CoreResult<Bool>.failure(LockerError(kind: .parseError))
         }
+        
         self.identityKeeper.initEkData()
         self.clientId              = clientId
         self.deviceFingerprint     = deviceFingerprint

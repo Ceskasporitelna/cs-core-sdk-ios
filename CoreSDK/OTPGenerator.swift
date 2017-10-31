@@ -39,21 +39,15 @@ class OTPGenerator{
     
     
     func exctractCodeFromHmac(_ data:Data) -> UInt32{
-        //print("hmac bytes: \(data)");
         let offset = data.count - 4;
         let hmacBytes = data.byteBuffer;
         let bytes:[UInt8] = [hmacBytes[offset],hmacBytes[offset+1],hmacBytes[offset+2],hmacBytes[offset+3]];
-        //print("last bytes: \(bytes)")
-
-        //var code = UnsafePointer<UInt32>(bytes).pointee
         
         var code: UInt32 = 0
         memcpy(&code, bytes, bytes.count)
         
-        //print("u32 raw: \(code)")
         code = code & 0x7FFFFFFF;
         code = code % UInt32( pow( Double(10), Double(self.otpAttributes.OTP_LENGTH) ) );
-        //print("processed: \(code)")
         return code;
     }
     

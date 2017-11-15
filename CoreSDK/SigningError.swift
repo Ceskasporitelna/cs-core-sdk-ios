@@ -225,9 +225,9 @@ public class SigningError : CSErrorBase
         super.init(coder: aDecoder )
     }
     
-    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [AnyHashable: Any]?)
+    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [String: Any]?)
     {
-        super.init( domain:errorDomain, code:errorCode, userInfo:dict as [NSObject : AnyObject]? )
+        super.init( domain:errorDomain, code:errorCode, userInfo:dict as [String : Any]? )
     }
     
     

@@ -47,7 +47,7 @@ public class CSErrorBase: NSError
         super.init(coder: aDecoder )
     }
     
-    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [AnyHashable: Any]?)
+    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [String: Any]?)
     {
         super.init( domain:errorDomain, code:errorCode, userInfo:dict )
     }

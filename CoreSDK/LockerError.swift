@@ -179,15 +179,15 @@ public class LockerError: CSErrorBase
     }
     
     //--------------------------------------------------------------------------
-    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [AnyHashable: Any]?)
+    public override init(domain errorDomain: String, code errorCode: Int, userInfo dict: [String: Any]?)
     {
-        super.init( domain:errorDomain, code:errorCode, userInfo:dict as [NSObject : AnyObject]? )
+        super.init( domain:errorDomain, code:errorCode, userInfo:dict as [String : Any]? )
     }
     
     //--------------------------------------------------------------------------
-    public init( lockerErrorKind: LockerErrorKind, userInfo dict: [AnyHashable: Any]?)
+    public init( lockerErrorKind: LockerErrorKind, userInfo dict: [String: Any]?)
     {
-        super.init( domain:type(of: self).ERROR_DOMAIN, code:lockerErrorKind.rawValue, userInfo:dict as [NSObject : AnyObject]? )
+        super.init( domain:type(of: self).ERROR_DOMAIN, code:lockerErrorKind.rawValue, userInfo:dict as [String : Any]? )
     }
     
     

@@ -38,7 +38,7 @@ public class TransformBase{
     
     func transform(_ obj:Any) -> Any{
         self.obj = obj
-        return doTransform(obj: obj)
+        return doTransform(obj)
     }
     
     internal func doTransform(_ obj:Any) -> Any{

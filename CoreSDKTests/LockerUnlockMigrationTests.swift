@@ -56,8 +56,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTAssert(self.locker.lockStatus == .unlocked, "User must be unlocked now!")
                                                 XCTAssert(self.locker.accessToken == "31001130941a89f6df37749d0b736ce9", "Wrong access token!")
@@ -103,8 +103,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainigAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration must fail here!")
                                                 
@@ -148,8 +148,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 
@@ -198,8 +198,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 
@@ -249,8 +249,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result{
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 
@@ -299,8 +299,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 
@@ -350,8 +350,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 
@@ -400,8 +400,8 @@ class LockerUnlockMigrationTests: LockerTestsBase
         self.locker.unlockAfterMigration(lockType: .biometricLock,
                                          password: "random password",
                                          passwordMigrationProcess: passwordMigrationProcess,
-                                         data: lockerMigrationDTO) { result in
-                                            switch result.0 {
+                                         data: lockerMigrationDTO) { result, remainingAttempts  in
+                                            switch result {
                                             case .success(_):
                                                 XCTFail("User unlock after migration has to fail here!")
                                                 

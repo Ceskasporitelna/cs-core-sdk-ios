@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let kSymmetricCryptorRandomStringGeneratorCharset: [Character] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".characters.map({$0});
+private let kSymmetricCryptorRandomStringGeneratorCharset: [Character] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".map({$0});
 
 enum CoreSDKSymmetricCryptorAlgorithm {
     case des        // DES standard, 64 bits key
@@ -465,9 +465,7 @@ public extension String
     //--------------------------------------------------------------------------
     func subStringFromStartIndex(_ startIndex: Int, length: Int) -> String
     {
-        //let range = Range(start: self.startIndex.advancedBy(startIndex), end: self.startIndex.advancedBy(startIndex + length));
-        let range = Range( self.characters.index(self.startIndex, offsetBy: startIndex)..<self.characters.index(self.startIndex, offsetBy: startIndex + length) )
-        return self.substring(with: range);
+        return String(self [self.index(self.startIndex, offsetBy: startIndex)..<self.index(self.startIndex, offsetBy: startIndex + length)])
     }
     
     //--------------------------------------------------------------------------

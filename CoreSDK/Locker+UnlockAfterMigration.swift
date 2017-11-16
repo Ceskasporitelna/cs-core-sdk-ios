@@ -84,11 +84,11 @@ extension Locker
                     
                     // Change old version of the password to the new one ...
                     
-                    self.changePassword(customHash: passwordMigrationProcess, password: password) { result in
-                        switch result.0 {
+                    self.changePassword(customHash: passwordMigrationProcess, password: password) { result, remainingAttempts  in
+                        switch result {
                         case .success(_):
                             self.completionQueue.async {
-                                completion(result.0, nil)
+                                completion(result, nil)
                             }
                             
                         case .failure(let error):

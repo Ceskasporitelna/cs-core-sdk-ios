@@ -1675,9 +1675,9 @@ extension CFError {
     var error: NSError {
         let domain = CFErrorGetDomain(self) as String
         let code = CFErrorGetCode(self)
-        let userInfo = CFErrorCopyUserInfo(self) as! [AnyHashable: Any]
+        let userInfo = CFErrorCopyUserInfo(self) as! [String: Any]
         
-        return NSError(domain: domain, code: code, userInfo: userInfo)
+        return NSError(domain: domain, code: code, userInfo: userInfo/* as! [String : Any]*/)
     }
 }
 

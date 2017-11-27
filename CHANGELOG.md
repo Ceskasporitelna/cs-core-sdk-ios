@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2017-11-27
+
 ## Fixed
 - Swift 4 migraiton
 

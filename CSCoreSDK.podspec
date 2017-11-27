@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "CSCoreSDK"
-  s.version      = "1.3.0"
+  s.version      = "2.0.0"
   s.source       = { :tag => "v#{s.version}", :git => "https://github.com/Ceskasporitelna/cs-core-sdk-ios.git" }
   s.summary      = "iOS framework including LockerSDK & common foundation for other CSAS SDKs."
   s.description  = "Allows to autenticate against CSAS servers and communicate with them through WebApi."

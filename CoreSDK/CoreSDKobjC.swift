@@ -19,6 +19,8 @@ public class CoreSDKobjC: NSObject {
     
     public static var sharedInstance = CoreSDKobjC()
     
+    public let status = CoreSDK.sharedInstance.locker.status
+    
     // MARK: Configuration
     
     public func useWebApiKey(key: String) {

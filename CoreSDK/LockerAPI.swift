@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /**
 The Locker public API.
 */
@@ -226,7 +225,7 @@ public enum LockStatus: UInt8
 public enum LockType: Int
 {
     case pinLock             = 0
-    case fingerprintLock     = 1
+    case biometricLock       = 1
     case gestureLock         = 2
     case noLock              = 3
     
@@ -236,7 +235,7 @@ public enum LockType: Int
         case CoreSDK.localized("auth-method-pin"):
             self = .pinLock
         case CoreSDK.localized("auth-method-fingerprint"):
-            self = .fingerprintLock
+            self = .biometricLock
         case CoreSDK.localized("auth-method-gesture"):
             self = .gestureLock
         default:
@@ -247,7 +246,7 @@ public enum LockType: Int
     {
         switch ( self ) {
         case .pinLock:         return CoreSDK.localized("auth-method-pin")
-        case .fingerprintLock: return CoreSDK.localized("auth-method-fingerprint")
+        case .biometricLock: return CoreSDK.localized("auth-method-fingerprint")
         case .gestureLock:     return CoreSDK.localized("auth-method-gesture")
         case .noLock:          return CoreSDK.localized("auth-method-none")
         }

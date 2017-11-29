@@ -12,11 +12,11 @@ import Foundation
 extension Locker
 {
     //------------------------------------------------------------------------------
-    public func unlockAfterMigration(lockType:            LockType,
-                                     password:            String,
-                                     passwordHashProcess: @escaping PasswordHashProcess,
-                                     data:                LockerMigrationDataDTO,
-                                     completion:          @escaping UnlockCompletion)
+    public func unlockAfterMigration(lockType:                 LockType,
+                                     password:                 String,
+                                     passwordMigrationProcess: PasswordMigrationProcess,
+                                     data:                     LockerMigrationDataDTO,
+                                     completion:               @escaping UnlockCompletion)
     {
         let state = self.status.lockStatus
         guard state == .unregistered else {
@@ -38,9 +38,17 @@ extension Locker
         
         self.backgroundQueue.async {
             
+            var originalPassword = password
+            
+            // Transform original password for gesture and pin lock types
+            
+            if lockType == .gestureLock || lockType == .pinLock {
+                originalPassword = passwordMigrationProcess.transformPassword(password)
+            }
+            
             // Unlock with old version of password ...
             
-            let oldPassword = passwordHashProcess(password)
+            let oldPassword = passwordMigrationProcess.hashPassword(originalPassword)
             if #available(iOS 9.0, *) {}
             else {
                 self.touchIdToken = oldPassword
@@ -76,7 +84,7 @@ extension Locker
                     
                     // Change old version of the password to the new one ...
                     
-                    self.changePassword(customHash: passwordHashProcess, password: password) { result in
+                    self.changePassword(customHash: passwordMigrationProcess, password: password) { result in
                         switch result.0 {
                         case .success(_):
                             self.completionQueue.async {

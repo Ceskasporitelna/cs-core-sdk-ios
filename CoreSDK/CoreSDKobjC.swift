@@ -19,7 +19,11 @@ public class CoreSDKobjC: NSObject {
     
     public static var sharedInstance = CoreSDKobjC()
     
-    public let status = CoreSDK.sharedInstance.locker.status
+    public var status: LockerStatus {
+        get {
+            return CoreSDK.sharedInstance.locker.status
+        }
+    }
     
     // MARK: Configuration
     

@@ -32,7 +32,7 @@ public protocol LockerAPI
      */
     var lockStatus: LockStatus            { get }
     /**
-     A token obtained after the successfull registration.
+     A token obtained after the successful registration.
      */
     var accessToken: String?              { get }
     
@@ -180,7 +180,7 @@ public protocol LockerAPI
  * unlockAfterMigration(password, passwordMigrationProcess, lockerMigrationData, callback)
  * to handle custom password hashing before migration.
  */
-public class PasswordMigrationProcess
+@objc public class PasswordMigrationProcess: NSObject
 {
     /**
       Transform password according to used hashing algorithm with appropriate salt.
@@ -233,7 +233,7 @@ public class PasswordMigrationProcess
     - Locked: User is registered, but locked.
     - Unlocked: User is registered and unlocked.
 */
-public enum LockStatus: UInt8
+@objc public enum LockStatus: UInt8
 {
     case unregistered        = 0
     case locked              = 1
@@ -267,7 +267,7 @@ public enum LockStatus: UInt8
     - GestureLock: Locked by gesture.
     - NoLock: Locked by generated token without user input.
 */
-public enum LockType: Int
+@objc public enum LockType: Int
 {
     case pinLock             = 0
     case biometricLock       = 1
@@ -308,7 +308,7 @@ public enum LockType: Int
     - hasOneTimePasswordKey: A flag indicating, a presence of one time password key in the storage.
     - hasAesEncryptionKey: A flag indicating a presence of the AES encryption key in the storage.
 */
-public class LockerStatus: NSObject
+@objc public class LockerStatus: NSObject
 {
     public var lockStatus:            LockStatus
     public var lockType:              LockType

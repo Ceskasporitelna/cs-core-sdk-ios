@@ -151,7 +151,7 @@
 		26D1BD9D1C0BBDA7007EF500 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D1BD9C1C0BBDA7007EF500 /* Utils.swift */; };
 		5095A64C1CB3E828001FE4B7 /* ListOfPrimitivesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095A64B1CB3E827001FE4B7 /* ListOfPrimitivesResponse.swift */; };
 		5095A64E1CB54319001FE4B7 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095A64D1CB54319001FE4B7 /* DateUtils.swift */; };
-		90FDD66C1F9E34DC007C54E3 /* CoreSDKobjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FDD66A1F9DE969007C54E3 /* CoreSDKobjC.swift */; };
+		90FDD66C1F9E34DC007C54E3 /* CoreSDKObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FDD66A1F9DE969007C54E3 /* CoreSDKObjC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,7 +348,7 @@
 		26DB60FA1C173E76004C4B21 /* CSCoreSDK.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSCoreSDK.podspec; sourceTree = "<group>"; };
 		5095A64B1CB3E827001FE4B7 /* ListOfPrimitivesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfPrimitivesResponse.swift; sourceTree = "<group>"; };
 		5095A64D1CB54319001FE4B7 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
-		90FDD66A1F9DE969007C54E3 /* CoreSDKobjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSDKobjC.swift; sourceTree = "<group>"; };
+		90FDD66A1F9DE969007C54E3 /* CoreSDKObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSDKObjC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,7 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				19DBF61E1CC0192300C6AC37 /* SharedContext.swift */,
-				90FDD66A1F9DE969007C54E3 /* CoreSDKobjC.swift */,
+				90FDD66A1F9DE969007C54E3 /* CoreSDKObjC.swift */,
 				19A3C9701BDBD89400A03AC4 /* CSCoreSDK.h */,
 				195448EC1BDBD90B004D7E3B /* CoreSDK.swift */,
 				19E489171BE34D5400959217 /* CoreSDK+Logger.swift */,
@@ -1034,7 +1034,7 @@
 				1986B72A1C0079B1009E2353 /* CoreSDKAPI.swift in Sources */,
 				1958A1611F7D6A8B002B7CB7 /* LockerMigrationDataDTO.swift in Sources */,
 				19C3FBE21C06484E0013A3DC /* LockerAPI.swift in Sources */,
-				90FDD66C1F9E34DC007C54E3 /* CoreSDKobjC.swift in Sources */,
+				90FDD66C1F9E34DC007C54E3 /* CoreSDKObjC.swift in Sources */,
 				268A84181C11CAA700F0B3A9 /* OTPGenerator.swift in Sources */,
 				268DD6721C1715B000DBBCD8 /* Stream.swift in Sources */,
 				195C4EF51CF985A600B72185 /* DownloadData.swift in Sources */,

@@ -167,7 +167,7 @@ public enum CoreResult<T>
     - Error All error messages. <== Recommended for production build
     - Fatal Fatal error only messages.
 */
-public enum LogLevel: Int8
+@objc public enum LogLevel: Int8
 {
     case all                 = 0 // The default value
     case detailedDebug       = 1

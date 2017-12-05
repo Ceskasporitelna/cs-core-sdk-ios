@@ -183,7 +183,7 @@ import Foundation
     /**
      Start date in seconds after 1.1.1970
      */
-    @objc var otpStart: UInt32 {
+    @objc public var otpStart: UInt32 {
         get {
             return CoreSDK.sharedInstance.locker.otpAttributes.OTP_START
         }
@@ -192,7 +192,7 @@ import Foundation
     /**
      Time interval in seconds for OTP genarator.
      */
-    @objc var otpInterval: Float64 {
+    @objc public var otpInterval: Float64 {
         get {
             return CoreSDK.sharedInstance.locker.otpAttributes.OTP_INTERVAL
         }
@@ -201,7 +201,7 @@ import Foundation
     /**
      Raw length of generated OTP.
      */
-    @objc var otpLength: Int {
+    @objc public var otpLength: Int {
         get {
             return CoreSDK.sharedInstance.locker.otpAttributes.OTP_LENGTH
         }
@@ -210,7 +210,7 @@ import Foundation
     /**
      Ther user status descriptor.
      */
-    @objc var status: LockerStatus {
+    @objc public var status: LockerStatus {
         get {
             return CoreSDK.sharedInstance.locker.status
         }
@@ -219,7 +219,7 @@ import Foundation
     /**
      The user locker status.
      */
-    @objc var lockStatus: LockStatus {
+    @objc public var lockStatus: LockStatus {
         get {
             return CoreSDK.sharedInstance.locker.lockStatus
         }
@@ -228,7 +228,7 @@ import Foundation
     /**
      A token obtained after the successful registration.
      */
-    @objc var accessToken: String? {
+    @objc public var accessToken: String? {
         get {
             return CoreSDK.sharedInstance.locker.accessToken
         }
@@ -238,7 +238,7 @@ import Foundation
      Access token expiration in msec. since 1.1.1970
      Returns 0 if no expiration information is available (i.e. no token is present)
      */
-    @objc var accessTokenExpiration: UInt64 {
+    @objc public var accessTokenExpiration: UInt64 {
         get {
             return CoreSDK.sharedInstance.locker.accessTokenExpiration ?? 0
         }
@@ -248,7 +248,7 @@ import Foundation
      A queue used to return of Locker callbacks.
      - seealso: CoreSDK.sharedInstance.completionQueue
      */
-    @objc var completionQueue: DispatchQueue {
+    @objc public var completionQueue: DispatchQueue {
         get {
             return CoreSDK.sharedInstance.locker.completionQueue
         }
@@ -257,7 +257,7 @@ import Foundation
     /**
      The current lockType.
      */
-    @objc var lockType: LockType {
+    @objc public var lockType: LockType {
         get {
             return CoreSDK.sharedInstance.locker.lockType
         }
@@ -266,7 +266,7 @@ import Foundation
     /**
      * Url to handle registration redirect call
      */
-    @objc var redirectUrlPath: String {
+    @objc public var redirectUrlPath: String {
         get {
             return CoreSDK.sharedInstance.locker.redirectUrlPath
         }
@@ -275,7 +275,7 @@ import Foundation
     /**
      Returns the URL to start the registration process.
      */
-    @objc var registrationURL: URL? {
+    @objc public var registrationURL: URL? {
         get {
             return CoreSDK.sharedInstance.locker.registrationURL()
         }
@@ -290,7 +290,7 @@ import Foundation
      completeUserRegistrationWithLockType( lockType: LockType, password: String, completion: RegistrationCompletion )
      method to complete the registration.
      */
-    @objc func registerUserWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
+    @objc public func registerUserWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
         CoreSDK.sharedInstance.locker.registerUserWithCompletion {
             (result) in
             switch result {
@@ -316,7 +316,7 @@ import Foundation
      the the LockerUI.registerUserWithCompletion( completion : RegistrationCompletion ) completion will be invoked with registration result.
      - seealso: application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool
      */
-    @objc func continueWithUserRegistrationUsingOAuth2Url(_ oauth2url: URL) -> Bool {
+    @objc public func continueWithUserRegistrationUsingOAuth2Url(_ oauth2url: URL) -> Bool {
         return CoreSDK.sharedInstance.locker.continueWithUserRegistrationUsingOAuth2Url(oauth2url)
     }
     
@@ -326,7 +326,7 @@ import Foundation
      - parameter password: The user password.
      - parameter completion: The registration completion.
      */
-    @objc func completeUserRegistrationWithLockType(_ lockType: LockType, password: String?, success: ((Bool)->())?, failure: ((NSError)->())?) {
+    @objc public func completeUserRegistrationWithLockType(_ lockType: LockType, password: String?, success: ((Bool)->())?, failure: ((NSError)->())?) {
         CoreSDK.sharedInstance.locker.completeUserRegistrationWithLockType(lockType, password: password) {
             (result) in
             switch result {
@@ -342,7 +342,7 @@ import Foundation
      Unregisteres the user.
      - parameter completion: The user unregistration process completion.
      */
-    @objc func unregisterUserWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
+    @objc public func unregisterUserWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
         CoreSDK.sharedInstance.locker.unregisterUserWithCompletion {
             (result) in
             switch result {
@@ -359,7 +359,7 @@ import Foundation
      - parameter password: Password the same type as that used when registering user.
      - parameter completion: The result of user unlock. In case of .Failure see the remainingAttempts attribute. In case of remainingAttempts == 0, the user is automatically unregistered.
      */
-    @objc func unlockUserWithPassword(_ password: String?, success: ((Bool)->())?, failure: ((_ error: NSError, _ remainingAttempts: Int)->())?) {
+    @objc public func unlockUserWithPassword(_ password: String?, success: ((Bool)->())?, failure: ((_ error: NSError, _ remainingAttempts: Int)->())?) {
         CoreSDK.sharedInstance.locker.unlockUserWithPassword(password) { (result, remainingAttempts) in
             switch result {
             case .success(let result):
@@ -374,7 +374,7 @@ import Foundation
      Unlocks the user using one time password generated by the Locker.
      - parameter completion: The OTP unlock result. There is no remainingAttempts returned from server. After an unsuccessfull unlock is the user automatically unregistered.
      */
-    @objc func unlockUserUsingOTPWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
+    @objc public func unlockUserUsingOTPWithCompletion(success: ((Bool)->())?, failure: ((NSError)->())?) {
         CoreSDK.sharedInstance.locker.unlockUserUsingOTPWithCompletion { (result, _) in
             switch result {
             case .success(let result):
@@ -388,7 +388,7 @@ import Foundation
     /**
      Locks the user. This method does no communication to WebApi.
      */
-    @objc func lockUser() {
+    @objc public func lockUser() {
         CoreSDK.sharedInstance.locker.lockUser()
     }
     
@@ -399,7 +399,7 @@ import Foundation
      - parameter newPassword: The new password of the new lockType. Can be nil, when the newLockType is .NoAuth.
      - parameter completion: The change password result. In case of .Failure see the remainingAttempts attribute. In case of remainingAttempts == 0, the user is automatically unregistered.
      */
-    @objc func changePassword( oldPassword: String?,
+    @objc public func changePassword( oldPassword: String?,
                          newLockType: LockType,
                          newPassword: String?,
                          success: ((Bool)->())?,
@@ -421,7 +421,7 @@ import Foundation
      Invokes the accessToken refresh using the stored registration code and current access token.
      - parameter completion: The refresh token result.
      */
-    @objc func refreshToken(success: ((Bool)->())?, failure: ((_ error: NSError, _ remainingAttempts: Int)->())?) {
+    @objc public func refreshToken(success: ((Bool)->())?, failure: ((_ error: NSError, _ remainingAttempts: Int)->())?) {
         CoreSDK.sharedInstance.locker.refreshToken { (result, remainingAttempts) in
             switch result {
             case .success(let result):
@@ -436,7 +436,7 @@ import Foundation
      Cancel all running locker operations and return the current lockerStatus in completion handler.
      - parameter completion: The current user status.
      */
-    @objc func cancelWithCompletion( _ completion: (( _ status: LockerStatus ) -> ())? ) {
+    @objc public func cancelWithCompletion( _ completion: (( _ status: LockerStatus ) -> ())? ) {
         CoreSDK.sharedInstance.locker.cancelWithCompletion { (status) in
             completion?(status)
         }
@@ -448,7 +448,7 @@ import Foundation
      - parameter urlPath: The url path to be checked.
      - returns: True, if the urlPath is valid and contains the registration code, false otherwise.
      */
-    @objc func canContinueWithOAuth2UrlPath( _ urlPath: String ) -> Bool {
+    @objc public func canContinueWithOAuth2UrlPath( _ urlPath: String ) -> Bool {
         return CoreSDK.sharedInstance.locker.canContinueWithOAuth2UrlPath(urlPath)
     }
     
@@ -462,12 +462,12 @@ import Foundation
      - parameter data:                     Locker migration data.
      - parameter callback:                 The result callback.
      */
-    func unlockAfterMigration(lockType:                 LockType,
-                              password:                 String,
-                              passwordMigrationProcess: PasswordMigrationProcess,
-                              data:                     LockerMigrationDataDTO,
-                              success:                  ((Bool)->())?,
-                              failure:                  ((NSError, Int)->())?
+    @objc public func unlockAfterMigration(lockType:                 LockType,
+                                           password:                 String,
+                                           passwordMigrationProcess: PasswordMigrationProcess,
+                                           data:                     LockerMigrationDataDTO,
+                                           success:                  ((Bool)->())?,
+                                           failure:                  ((NSError, Int)->())?
         ) {
         CoreSDK.sharedInstance.locker.unlockAfterMigration(lockType: lockType,
                                                            password: password,
@@ -482,7 +482,7 @@ import Foundation
         }
     }
     
-    @objc func wipeCurrentUser() {
+    @objc public func wipeCurrentUser() {
         CoreSDK.sharedInstance.locker.wipeCurrentUser()
     }
     

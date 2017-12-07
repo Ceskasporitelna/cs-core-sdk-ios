@@ -12,7 +12,7 @@ import Foundation
  * Locker data necessary for unlock locker after migration from some older version.
  */
 //==============================================================================
-public class LockerMigrationDataDTO: ApiDTO
+@objc public class LockerMigrationDataDTO: ApiDTO
 {
     public var clientId:                         String!
     public var deviceFingerprint:                String!

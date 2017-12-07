@@ -35,10 +35,9 @@ internal enum CoreSDKActivities: String {
 }
 
 
-
 // MARK: -
 //==============================================================================
-public protocol CoreSDKLoggerDelegate
+@objc public protocol CoreSDKLoggerDelegate
 {
     func log( _ logLevel: LogLevel, message: String )
 }
@@ -69,8 +68,9 @@ public func clog( _ moduleName: String?, activityName: String?, fileName: NSStri
 
 // MARK: -
 //==============================================================================
-public class CoreSDK: NSObject, CoreSDKAPI
-{
+public class CoreSDK: NSObject, CoreSDKAPI {
+    
+    
     public static let BundleIdentifier  = "cz.applifting.CSCoreSDK"
     internal static let ModuleName      = "Core"
     

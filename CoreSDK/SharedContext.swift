@@ -11,7 +11,7 @@ import Foundation
 let AccessTokenProviderNotSetMsg = "AccessTokenProvider has to be set on SharedContext if you want to call SharedContext's methods."
 
 //==============================================================================
-public class SharedContext: AccessTokenProvider
+public class SharedContext: AccessTokenProvider, AccessTokenProviderObjC
 {
     
     internal var accessTokenProvider : LockerAccessTokenProvider? {
@@ -61,6 +61,20 @@ public class SharedContext: AccessTokenProvider
     }
     
     //--------------------------------------------------------------------------
+    @objc public func getAccessToken(success: ((TAccessToken)->())?, failure: ((NSError)->())?){
+        self.getAccessToken { (result) in
+            switch result {
+            case .success(let accessToken):
+                success?(accessToken)
+                break
+            case .failure(let error):
+                failure?(error)
+                break
+            }
+        }
+    }
+    
+    //--------------------------------------------------------------------------
     public func refreshAccessToken( _ callback: @escaping ( _ result: CoreResult<TAccessToken>) -> () )
     {
         guard let provider = self.accessTokenProvider else {
@@ -73,4 +87,15 @@ public class SharedContext: AccessTokenProvider
         })
     }
 
+    //--------------------------------------------------------------------------
+    @objc public func refreshAccessToken(success: ((TAccessToken) -> ())?, failure: ((NSError) -> ())?) {
+        self.refreshAccessToken { (result) in
+            switch result {
+            case .success(let accessToken):
+                success?(accessToken)
+            case .failure(let error):
+                failure?(error)
+            }
+        }
+    }
 }

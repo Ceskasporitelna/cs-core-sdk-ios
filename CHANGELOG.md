@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Added
+- ObjC compatibility
+
 ## [2.0.0] - 2017-11-27
 
 ## Fixed

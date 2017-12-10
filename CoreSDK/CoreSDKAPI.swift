@@ -208,7 +208,7 @@ public enum CoreResult<T>
     - parameter oAuth2ContextBaseUrl: A Locker base URL path for OAuth2 authentication.
     */
     //--------------------------------------------------------------------------
-    public convenience init(apiContextBaseUrl : String, oAuth2ContextBaseUrl : String)
+    @objc public convenience init(apiContextBaseUrl : String, oAuth2ContextBaseUrl : String)
     {
         self.init(apiContextBaseUrl: apiContextBaseUrl,oAuth2ContextBaseUrl: oAuth2ContextBaseUrl,allowUntrustedCertificates: false)
     }
@@ -220,7 +220,7 @@ public enum CoreResult<T>
      - parameter oAuth2ContextBaseUrl: A Locker base URL path for OAuth2 authentication.
      */
      //--------------------------------------------------------------------------
-    public init(apiContextBaseUrl : String, oAuth2ContextBaseUrl : String,allowUntrustedCertificates: Bool)
+    @objc public init(apiContextBaseUrl : String, oAuth2ContextBaseUrl : String,allowUntrustedCertificates: Bool)
     {
         self.apiContextBaseUrl    = apiContextBaseUrl
         self.oAuth2ContextBaseUrl = oAuth2ContextBaseUrl

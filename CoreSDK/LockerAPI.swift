@@ -287,6 +287,7 @@ public protocol LockerAPI
             self = .noLock
         }
     }
+    
     public func toString() -> String
     {
         switch ( self ) {
@@ -310,11 +311,11 @@ public protocol LockerAPI
 */
 @objc public class LockerStatus: NSObject
 {
-    public var lockStatus:            LockStatus
-    public var lockType:              LockType
-    public var clientId:              String?
-    public var hasOneTimePasswordKey: Bool = false
-    public var hasAesEncryptionKey:   Bool = false
+    @objc public var lockStatus:            LockStatus
+    @objc public var lockType:              LockType
+    @objc public var clientId:              String?
+    @objc public var hasOneTimePasswordKey: Bool = false
+    @objc public var hasAesEncryptionKey:   Bool = false
     
     
     override init()

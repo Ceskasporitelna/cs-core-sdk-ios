@@ -180,6 +180,7 @@ public protocol LockerAPI
  * unlockAfterMigration(password, passwordMigrationProcess, lockerMigrationData, callback)
  * to handle custom password hashing before migration.
  */
+
 @objc public class PasswordMigrationProcess: NSObject
 {
     /**
@@ -216,9 +217,9 @@ public protocol LockerAPI
      - returns: the new password in a format used in Locker SDK implementation. See above description
      */
     var transformPassword:((_ oldPassword: String) -> String)
-    
+
     //--------------------------------------------------------------------------
-    init(hashPassword: @escaping ((_ password: String) -> String), transformPassword: @escaping ((_ oldPassword: String) -> String))
+   public init(hashPassword: @escaping ((_ password: String) -> String), transformPassword: @escaping ((_ oldPassword: String) -> String))
     {
         self.hashPassword      = hashPassword
         self.transformPassword = transformPassword

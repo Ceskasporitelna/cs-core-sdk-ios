@@ -14,11 +14,11 @@ import Foundation
 //==============================================================================
 @objc public class LockerMigrationDataDTO: ApiDTO
 {
-    public var clientId:                         String!
-    public var deviceFingerprint:                String!
-    public var encryptionKey:                    String!
-    public var oneTimePasswordKey:               String!
-    public var refreshToken:                     String!
+    @objc public var clientId:                         String!
+    @objc public var deviceFingerprint:                String!
+    @objc public var encryptionKey:                    String!
+    @objc public var oneTimePasswordKey:               String!
+    @objc public var refreshToken:                     String!
     
     //--------------------------------------------------------------------------
     override public init()

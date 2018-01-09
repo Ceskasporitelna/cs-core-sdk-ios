@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.2.1] - 2018-01-09
+
 ## Fixed 
 - ObjC compatibility issues
 

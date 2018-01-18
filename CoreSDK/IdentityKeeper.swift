@@ -445,6 +445,7 @@ public class IdentityKeeper: NSObject
     func loadDkDataSync()
     {
         let keychain = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         do {
             self._keychainDkDTO            = try self.loadApiDTOWithKeychain( keychain, forKey: kCoreSDKDataDk, passwordData: self.keychainPassword.data(using: String.Encoding.ascii)! )
             self._keychainDkDTOReadPending = false
@@ -480,6 +481,7 @@ public class IdentityKeeper: NSObject
     {
         // Save KeychainDkDTO ...
         let keychain = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         
         let saveResult = self.saveApiDTOWithKeychain( keychain, apiDTO: dkData, forKey: kCoreSDKDataDk, passwordData: self.keychainPassword.data(using: String.Encoding.ascii)!)
         switch saveResult {
@@ -498,6 +500,7 @@ public class IdentityKeeper: NSObject
                 self._keychainEkDTO = KeychainEkDTO()
             }
             let keychain = Keychain( service: CoreSDKKeychainService )
+                .accessibility(.afterFirstUnlock)
 
             let saveResult   = self.saveApiDTOWithKeychain( keychain, apiDTO: ekData, forKey: kCoreSDKDataEk, passwordData: passwordData)
             switch saveResult {
@@ -512,6 +515,7 @@ public class IdentityKeeper: NSObject
     func loadEkDataSync(_ aesEncryptionKey : String?)
     {
         let keychain   = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         
         do {
             // Load KeychainEkDTO ...
@@ -550,6 +554,7 @@ public class IdentityKeeper: NSObject
     
     func wipeKeychainDataSync(){
         let keychain = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         var errorOccured = false
         do{
             
@@ -619,6 +624,7 @@ public class IdentityKeeper: NSObject
     {
         var result: String?
         let keychain = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         
         self.propertyQueue.sync(execute: {
             do {

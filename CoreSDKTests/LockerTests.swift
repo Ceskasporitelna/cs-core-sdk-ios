@@ -563,6 +563,7 @@ class LockerTests: XCTestCase
         self.verifyIdentityKeeperIntegrity()
         //Get access to keychain
         let keychain   = Keychain( service: CoreSDKKeychainService )
+            .accessibility(.afterFirstUnlock)
         do{
             //Store some nonsense into the keychain
             try keychain.set(Data(base64Encoded: "U29tZVNoaXR0eURhdGFJbktleWNoYWlu")! , key: kCoreSDKDataDk)

@@ -954,6 +954,17 @@ internal class Keychain {
     }
     #endif
     
+    internal class func instanceForAccessGroup(service: String) -> Keychain {
+        // KeychainAccessGroupSuffix must be defined in InfoPlist of Application otherwise standard Keychain used
+        // AppIdentifierPrefix must be defined in InfoPlist of Application otherwise standard Keychain used
+        if let appPrefix = Bundle.main.infoDictionary!["AppIdentifierPrefix"] as? String,
+            let groupName = Bundle.main.infoDictionary!["KeychainAccessGroupSuffix"] as? String {
+            return Keychain(service: service, accessGroup: "\(appPrefix)\(groupName)")
+        } else {
+            return Keychain(service: service)
+        }
+    }
+    
     // MARK:
     
     fileprivate func items() -> [[String: AnyObject]] {

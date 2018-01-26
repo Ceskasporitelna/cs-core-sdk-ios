@@ -219,7 +219,7 @@ public protocol LockerAPI
     var transformPassword:((_ oldPassword: String) -> String)
 
     //--------------------------------------------------------------------------
-   public init(hashPassword: @escaping ((_ password: String) -> String), transformPassword: @escaping ((_ oldPassword: String) -> String))
+   @objc public init(hashPassword: @escaping ((_ password: String) -> String), transformPassword: @escaping ((_ oldPassword: String) -> String))
     {
         self.hashPassword      = hashPassword
         self.transformPassword = transformPassword

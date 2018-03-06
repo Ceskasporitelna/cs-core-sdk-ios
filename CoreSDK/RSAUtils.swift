@@ -284,7 +284,7 @@ public class RSAUtils: NSObject {
         return getRSAKeyFromKeychain(tagName)
     }
 
-    // Add a RSA pubic key to keychain and return its SecKeyRef
+    // Add a RSA public key to keychain and return its SecKeyRef
     // pubkeyBase64: RSA public key in base64 (data between "-----BEGIN PUBLIC KEY-----" and "-----END PUBLIC KEY-----")
     static public func addRSAPublicKey(_ pubkeyBase64: String, tagName: String) -> SecKey? {
         return addRSAPublicKey(pubkey: base64Decode(pubkeyBase64), tagName: tagName)

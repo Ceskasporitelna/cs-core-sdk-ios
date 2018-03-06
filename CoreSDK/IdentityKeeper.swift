@@ -23,7 +23,7 @@ let kLockerEnvironmentUserDefaultsKey    = "coresdk.locker.environment"
 public class IdentityKeeper: NSObject
 {
     
-    public class var protectedDataAvailable: Bool {
+    @objc public class var protectedDataAvailable: Bool {
         
         var result: Bool!
         
@@ -406,9 +406,17 @@ public class IdentityKeeper: NSObject
         //We skip the check if we cannot get to the data and check it on the sensitive data access everytime, until we can perform the check
         if self.freshInstallWipeCheckPerformed == false && type(of: self).protectedDataAvailable {
             self.freshInstallWipeCheckPerformed = true
-            if UserDefaults.standard.bool(forKey: kLockerInitializationUserDefaultsKey) == false{
-                 UserDefaults.standard.set(true, forKey: kLockerInitializationUserDefaultsKey)
-                 UserDefaults.standard.synchronize()
+            
+            var userDefaults: UserDefaults? = UserDefaults.standard
+            // AppGroupName must be defined in InfoPlist of Application otherwise standard UserDefaults used
+            if let groupName = Bundle.main.infoDictionary!["AppGroupName"] as? String {
+                userDefaults = UserDefaults(suiteName: groupName)
+            }
+            
+            let kLockerInitUserDefaults = userDefaults?.bool(forKey: kLockerInitializationUserDefaultsKey)
+            if kLockerInitUserDefaults == false {
+                userDefaults?.set(true, forKey: kLockerInitializationUserDefaultsKey)
+                userDefaults?.synchronize()
                 //This will wipe keychain
                 syncQueue.sync {
                     self.wipeKeychainDataSyncAndReinitEmptyDTOs()
@@ -443,8 +451,8 @@ public class IdentityKeeper: NSObject
     }
     
     func loadDkDataSync()
-    {
-        let keychain = Keychain( service: CoreSDKKeychainService )
+    {        
+        let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
         do {
             self._keychainDkDTO            = try self.loadApiDTOWithKeychain( keychain, forKey: kCoreSDKDataDk, passwordData: self.keychainPassword.data(using: String.Encoding.ascii)! )
             self._keychainDkDTOReadPending = false
@@ -479,7 +487,7 @@ public class IdentityKeeper: NSObject
     func saveDkDataSync(_ dkData : KeychainDkDTO)
     {
         // Save KeychainDkDTO ...
-        let keychain = Keychain( service: CoreSDKKeychainService )
+        let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
         
         let saveResult = self.saveApiDTOWithKeychain( keychain, apiDTO: dkData, forKey: kCoreSDKDataDk, passwordData: self.keychainPassword.data(using: String.Encoding.ascii)!)
         switch saveResult {
@@ -497,7 +505,7 @@ public class IdentityKeeper: NSObject
             if  self._keychainEkDTO == nil  {
                 self._keychainEkDTO = KeychainEkDTO()
             }
-            let keychain = Keychain( service: CoreSDKKeychainService )
+            let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
 
             let saveResult   = self.saveApiDTOWithKeychain( keychain, apiDTO: ekData, forKey: kCoreSDKDataEk, passwordData: passwordData)
             switch saveResult {
@@ -511,7 +519,7 @@ public class IdentityKeeper: NSObject
     
     func loadEkDataSync(_ aesEncryptionKey : String?)
     {
-        let keychain   = Keychain( service: CoreSDKKeychainService )
+        let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
         
         do {
             // Load KeychainEkDTO ...
@@ -549,7 +557,7 @@ public class IdentityKeeper: NSObject
     
     
     func wipeKeychainDataSync(){
-        let keychain = Keychain( service: CoreSDKKeychainService )
+        let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
         var errorOccured = false
         do{
             
@@ -618,7 +626,7 @@ public class IdentityKeeper: NSObject
     func vendorIdentifier() -> String
     {
         var result: String?
-        let keychain = Keychain( service: CoreSDKKeychainService )
+        let keychain = Keychain.instanceForAccessGroup(service: CoreSDKKeychainService)
         
         self.propertyQueue.sync(execute: {
             do {

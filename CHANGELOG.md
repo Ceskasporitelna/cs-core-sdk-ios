@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2018-03-06
+
 ## Added
 - Shared access between main app and extensions
 

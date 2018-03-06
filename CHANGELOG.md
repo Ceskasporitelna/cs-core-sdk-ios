@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Added
+- Shared access between main app and extensions
+
 ## [2.2.1] - 2018-01-09
 
 ## Fixed 

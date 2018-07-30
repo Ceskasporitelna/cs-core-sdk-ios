@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## Fixed
+
+- (TOOLING) Updated gem rubyzip to 1.2.1 to fix [CVE-2017-5946](https://github.com/rubyzip/rubyzip/issues/315)
+
+
 ## [2.3.0] - 2018-03-06
 
 ## Added

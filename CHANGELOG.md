@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ## Fixed
-
+- Fix typo in czech localization
 - (TOOLING) Updated gem rubyzip to 1.2.1 to fix [CVE-2017-5946](https://github.com/rubyzip/rubyzip/issues/315)
 
 

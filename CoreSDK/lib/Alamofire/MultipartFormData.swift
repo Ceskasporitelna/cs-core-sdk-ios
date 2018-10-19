@@ -428,7 +428,7 @@ internal class MultipartFormData {
             throw AlamofireError.errorWithCode(NSURLErrorCannotOpenFile, failureReason: failureReason)
         }
 
-        outputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        outputStream.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
         outputStream.open()
 
         self.bodyParts.first?.hasInitialBoundary = true
@@ -439,7 +439,7 @@ internal class MultipartFormData {
         }
 
         outputStream.close()
-        outputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        outputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
     }
 
     // MARK: - Private - Body Part Encoding
@@ -476,7 +476,7 @@ internal class MultipartFormData {
 
     fileprivate func encodeBodyStreamDataForBodyPart(_ bodyPart: BodyPart) throws -> Data {
         let inputStream = bodyPart.bodyStream
-        inputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        inputStream.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
         inputStream.open()
 
         var error: NSError?
@@ -503,7 +503,7 @@ internal class MultipartFormData {
         }
 
         inputStream.close()
-        inputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        inputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
 
         if let error = error {
             throw error
@@ -537,7 +537,7 @@ internal class MultipartFormData {
 
     fileprivate func writeBodyStreamForBodyPart(_ bodyPart: BodyPart, toOutputStream outputStream: OutputStream) throws {
         let inputStream = bodyPart.bodyStream
-        inputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        inputStream.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
         inputStream.open()
 
         while inputStream.hasBytesAvailable {
@@ -563,7 +563,7 @@ internal class MultipartFormData {
         }
 
         inputStream.close()
-        inputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        inputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
     }
 
     fileprivate func writeFinalBoundaryDataForBodyPart(

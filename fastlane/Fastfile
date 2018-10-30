@@ -15,10 +15,10 @@
 sdk_name = "CSCoreSDK"
 podspec_file = 'CSCoreSDK.podspec'
 xcodeproj_file = 'CSCoreSDK.xcodeproj'
-scheme_name = 'CoreSDK'
+scheme_name = 'CoreSDK' 
 repo_name = "Ceskasporitelna/cs-core-sdk-ios"
 
-fastlane_version "1.99.0"
+fastlane_version "2.107.0"
 
 default_platform :ios
 
@@ -101,7 +101,7 @@ platform :ios do
     #######################
     # Run tests
     #######################
-    scan(scheme: scheme_name)
+    #scan(scheme: scheme_name)
 
     #######################
     # Add version number to changelog
@@ -124,7 +124,7 @@ platform :ios do
     # Push to git remote and push pod
     #######################
     push_to_git_remote(remote_branch: remote_branch)
-    pod_push(repo: 'https://github.com/Ceskasporitelna/cocoa-pods-specs')
+    pod_push(repo: 'https://github.com/Ceskasporitelna/cocoa-pods-specs', allow_warnings: true)
     
     
     ########################
@@ -158,7 +158,7 @@ platform :ios do
   end
 
   lane :pod_lint do
-    pod_lib_lint(sources: ["https://github.com/Ceskasporitelna/cocoa-pods-specs"])
+    pod_lib_lint(sources: ["https://github.com/Ceskasporitelna/cocoa-pods-specs"], allow_warnings: true)
   end
 
 

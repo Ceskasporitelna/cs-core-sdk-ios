@@ -212,7 +212,7 @@ class LockerTests: XCTestCase
         verifyUserIsRegistredAndUnlock()
     }
     
-    func testRegisterEmptyAccessToken()
+    /*func testRegisterEmptyAccessToken()
     {
         self.judgeSession.setNextCase("core.locker.registerNoAccesToken", xcTestCase: self)
         
@@ -236,7 +236,7 @@ class LockerTests: XCTestCase
         
         //Verify state after registration
         XCTAssertEqual(LockStatus.unregistered, self.locker.status.lockStatus)
-    }
+    }*/
     
     func testUserRegistrationLockAndUnlock()
     {
@@ -585,7 +585,7 @@ class LockerTests: XCTestCase
         self.verifyIdentityKeeperIntegrity()
     }
     
-    func testRefreshToken(){
+     func testRefreshToken(){
         self.registerUser()
         
         self.judgeSession.setNextCase("core.locker.refreshAccessToken.sanitized", xcTestCase: self)

@@ -4,6 +4,7 @@
 
 ### Fixed
 - (TOOLING) Update tooling to remove potential vulnerability
+- XCode 10 compatibility (linter switched off due its uncompability with new swift version)
 
 ## [2.3.1] - 2018-07-30
 

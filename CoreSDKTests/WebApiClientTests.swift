@@ -396,7 +396,7 @@ class WebApiClientTests: XCTestCase
             }
         })
         
-        waitForExpectations(timeout: 10.0, handler: nil)
+        waitForExpectations(timeout: 20.0, handler: nil)
     }
     
 }
